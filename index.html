@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f8f7f4" />
+    <script>
+      (() => {
+        const storageKey = "daniel-meng-theme";
+        let preference = "system";
+
+        try {
+          const stored = window.localStorage.getItem(storageKey);
+          if (stored === "light" || stored === "dark") preference = stored;
+        } catch {
+          // System preference remains the fallback when storage is unavailable.
+        }
+
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+          .matches
+          ? "dark"
+          : "light";
+        const theme = preference === "system" ? systemTheme : preference;
+        const root = document.documentElement;
+
+        root.dataset.theme = theme;
+        root.dataset.themePreference = preference;
+        root.style.colorScheme = theme;
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", theme === "dark" ? "#171915" : "#f8f7f4");
+      })();
+    </script>
+    <meta
+      name="description"
+      content="Daniel Meng is a software engineer and UC Irvine graduate building full-stack products, data systems, and applied AI projects."
+    />
+    <meta
+      property="og:title"
+      content="Daniel Meng — full-stack and AI/ML engineer"
+    />
+    <meta
+      property="og:description"
+      content="Explore SplitSmart, Sports Analytics Agent, and Fabflix, then meet Daniel’s conversational portfolio preview."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Daniel Meng — full-stack &amp; AI/ML engineer</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript
+      >This portfolio uses JavaScript for its interactive pages. Visit
+      github.com/danmengo to explore Daniel Meng’s GitHub profile.</noscript
+    >
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
