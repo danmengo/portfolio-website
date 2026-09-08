@@ -93,7 +93,7 @@ export default function ResumePage() {
             <span className="resume-document-mark" aria-hidden="true">[ dm ]</span>
           </div>
           <h2 id="resume-person">Daniel Meng</h2>
-          <p className="resume-role">Software engineer</p>
+          <p className="resume-role">Software Engineer</p>
           <div className="resume-contact-row">
             <a href="mailto:danielmeng530@gmail.com">danielmeng530@gmail.com</a>
             <a href="https://www.linkedin.com/in/danielmengo/">
