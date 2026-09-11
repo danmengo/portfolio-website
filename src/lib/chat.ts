@@ -109,7 +109,7 @@ function projectReply(project: ChatProject, question: string): ChatReply {
           ],
     fabflix: asksAboutPerformance
       ? [
-          "For Fabflix, the résumé reports that connection pooling, batch inserts, and caching improved XML parsing and insertion performance by 40%.",
+          "For Fabflix, the résumé reports that JDBC connection pooling and batch inserts improved XML parsing and insert speed by 40%. In-memory caching eliminated unnecessary lookups.",
           "No other performance metric is documented in the information available to this guide.",
         ]
       : asksAboutTechnology
@@ -119,7 +119,7 @@ function projectReply(project: ChatProject, question: string): ChatReply {
           ]
         : [
             "Fabflix is an April 2025 backend project using Tomcat, JDBC, Maven, and AWS EC2. Its documented infrastructure includes load balancing and MySQL replication.",
-            "Daniel used connection pooling, batch inserts, and caching, improving XML parsing and insertion performance by 40%.",
+            "Daniel used JDBC connection pooling and batch inserts to improve XML parsing and insert speed by 40%, and in-memory caching to eliminate unnecessary lookups.",
           ],
   };
 

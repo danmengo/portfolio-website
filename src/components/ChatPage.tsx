@@ -16,12 +16,11 @@ import {
   Sparkles,
 } from "lucide-react";
 import {
-  getChatReply,
-  getWelcome,
   resolveProject,
   type ChatProject,
   type ChatReply,
 } from "../lib/chat";
+import { getLiveWelcome, requestReply } from "../lib/live-chat";
 import "./chat.css";
 
 interface ChatMessage {
@@ -46,14 +45,15 @@ export default function ChatPage({
 
 function Conversation({ firstProject }: { firstProject?: ChatProject }) {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { id: 0, role: "assistant", reply: getWelcome(firstProject) },
+    { id: 0, role: "assistant", reply: getLiveWelcome(firstProject) },
   ]);
   const [draft, setDraft] = useState("");
   const [pending, setPending] = useState(false);
   const [project, setProject] = useState<ChatProject | undefined>(firstProject);
   const nextId = useRef(1);
   const sending = useRef(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const activeRequest = useRef<AbortController | undefined>(undefined);
+  const [error, setError] = useState("");
   const conversation = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLTextAreaElement>(null);
   const lastReply = [...messages]
@@ -62,37 +62,45 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
 
   useEffect(() => {
     return () => {
-      if (timer.current) clearTimeout(timer.current);
+      activeRequest.current?.abort();
+      activeRequest.current = undefined;
     };
   }, []);
 
   useEffect(() => {
     if (conversation.current)
       conversation.current.scrollTop = conversation.current.scrollHeight;
-  }, [messages, pending]);
+  }, [messages, pending, error]);
 
-  function send(value: string) {
+  async function send(value: string) {
     const question = value.trim().slice(0, maxLength);
     if (!question || sending.current) return;
+    const controller = new AbortController();
+    activeRequest.current = controller;
     sending.current = true;
     setPending(true);
+    setError("");
     setDraft("");
-    setMessages((current) => [
-      ...current,
-      { id: nextId.current++, role: "user", text: question },
-    ]);
-    const reply = getChatReply(question, project);
-    timer.current = setTimeout(() => {
-      setMessages((current) => [
-        ...current,
-        { id: nextId.current++, role: "assistant", reply },
-      ]);
+    setMessages((current) => [...current, { id: nextId.current++, role: "user", text: question }]);
+    const deadline = setTimeout(() => controller.abort(), 35000);
+    try {
+      const reply = await requestReply(question, project, controller.signal);
+      if (activeRequest.current !== controller) return;
+      setMessages((current) => [...current, { id: nextId.current++, role: "assistant", reply }]);
       setProject(reply.project);
-      sending.current = false;
-      setPending(false);
-      timer.current = undefined;
-      input.current?.focus({ preventScroll: true });
-    }, 460);
+    } catch (cause) {
+      if (activeRequest.current !== controller) return;
+      setError(controller.signal.aborted ? "The answer took too long. Please try again." : cause instanceof Error ? cause.message : "Unable to connect. Please try again.");
+      setDraft((current) => current || question);
+    } finally {
+      clearTimeout(deadline);
+      if (activeRequest.current === controller) {
+        activeRequest.current = undefined;
+        sending.current = false;
+        setPending(false);
+        input.current?.focus({ preventScroll: true });
+      }
+    }
   }
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -112,8 +120,9 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
   }
 
   function reset() {
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = undefined;
+    activeRequest.current?.abort();
+    activeRequest.current = undefined;
+    setError("");
     sending.current = false;
     setPending(false);
     setDraft("");
@@ -122,7 +131,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
       {
         id: nextId.current++,
         role: "assistant",
-        reply: getWelcome(firstProject),
+        reply: getLiveWelcome(firstProject),
       },
     ]);
     input.current?.focus({ preventScroll: true });
@@ -152,7 +161,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
             <div className="chat-orbit-point" />
           </div>
           <div className="chat-profile-name">
-            Daniel Meng<span className="chat-profile-tag">AI PREVIEW</span>
+            Daniel Meng<span className="chat-profile-tag">AI GUIDE</span>
           </div>
           <p className="chat-profile-description">
             Full-stack curiosity.
@@ -189,7 +198,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
 
         <section
           className="chat-window"
-          aria-label="Portfolio conversation preview"
+          aria-label="Portfolio AI conversation"
         >
           <header className="chat-window-header">
             <div>
@@ -199,7 +208,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
               <div>
                 <h2>Ask my AI</h2>
                 <p>
-                  <span /> Conversation preview
+                  <span /> AI · answers with sources
                 </p>
               </div>
             </div>
@@ -231,7 +240,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
                 className={`chat-message chat-message-${message.role}`}
                 key={message.id}
                 aria-label={
-                  message.role === "user" ? "Your question" : "Preview response"
+                  message.role === "user" ? "Your question" : "AI guide response"
                 }
               >
                 {message.role === "assistant" && (
@@ -243,7 +252,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
                   <div className="chat-message-author">
                     {message.role === "assistant" ? (
                       <>
-                        Daniel's guide <span>CURATED</span>
+                        Daniel's guide <span>{message.id === 0 ? "WELCOME" : "AI"}</span>
                       </>
                     ) : (
                       "You"
@@ -293,12 +302,13 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
                 </div>
               </article>
             ))}
+            {error && <p className="chat-error" role="alert">{error}</p>}
             {pending && (
               <div className="chat-thinking" role="status">
                 <span />
                 <span />
                 <span />
-                <span className="chat-sr-only">Preparing a preview reply</span>
+                <span className="chat-sr-only">Searching the portfolio and preparing an answer</span>
               </div>
             )}
           </div>
@@ -348,7 +358,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
               </div>
             </form>
             <p className="chat-privacy">
-              Curated replies · No model connected · Messages stay in this page
+              Questions and project context are processed by Cloudflare AI. Chat history stays in this tab.
             </p>
           </div>
         </section>

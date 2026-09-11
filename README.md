@@ -11,20 +11,30 @@ A personal portfolio for my software engineering search, focused on full-stack d
 
 - Filterable project showcase with dedicated case-study pages
 - Interactive project diagrams and small working playgrounds
-- Curated “Ask my AI” conversation preview grounded in portfolio content
+- Live “Ask my AI” with hybrid retrieval, source links, and bounded project context
 - Public web résumé with a downloadable PDF and print support
 - Light, dark, and system-aware color themes
 - Responsive navigation, keyboard support, reduced-motion support, and SPA routing
 
-The current AI experience is a deterministic local preview; it does not send requests to an external model or require an API key.
+The AI calls a same-origin Cloudflare Worker, retrieves public portfolio evidence
+with BM25 and Vectorize, and generates answers through Workers AI. Per-IP rate
+limits and a shared daily allowance run before AI calls; credentials stay server-side.
+
+A separate RAG backend with a populated Cloudflare vector index is available. Start with
+`npm run rag:inspect -- "How did Fabflix improve XML performance?"` to inspect
+retrieved evidence without calling AI. `npm run rag:answer -- "How did Fabflix improve XML parsing?"`
+retrieves from the live index and generates an answer using Workers AI.
+Start with [RAG_WALKTHROUGH.md](./RAG_WALKTHROUGH.md) for a guided tour of the complete flow.
+See [RAG_GUIDE.md](./RAG_GUIDE.md) for the
+architecture, implemented protections, limitations, and next milestones.
 
 ## Featured work
 
 | Project | Focus | Stack |
 | --- | --- | --- |
 | **SplitSmart** | Group expense splitting and spending analytics | Next.js, Supabase, PostgreSQL |
-| **Sports Analytics Agent** | Baseball data agent and win-probability analysis | GCP ADK, Gemini, BigQuery |
 | **Fabflix** | Scalable database-backed Java web application | Java, MySQL, AWS EC2 |
+| **Sports Analytics Agent** | Baseball data agent and win-probability analysis | GCP ADK, Gemini, BigQuery |
 
 ## Built with
 

@@ -1,10 +1,19 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "danmengo-portfolio",
+  "main": "src/rag/worker.ts",
   "preview_urls": false,
   "compatibility_date": "2026-09-03",
+  "vars": { "CHAT_ENABLED": "true", "DAILY_AI_LIMIT": "100", "RETRIEVAL_MODE": "hybrid" },
+  "ai": { "binding": "AI" },
+  "vectorize": [{ "binding": "VECTOR_INDEX", "index_name": "danmengo-portfolio-knowledge" }],
+  "ratelimits": [{ "name": "CHAT_RATE_LIMITER", "namespace_id": "5302027", "simple": { "limit": 5, "period": 60 } }],
+  "durable_objects": { "bindings": [{ "name": "CHAT_BUDGET", "class_name": "ChatBudget" }] },
+  "migrations": [{ "tag": "rag-v1", "new_sqlite_classes": ["ChatBudget"] }],
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
     "not_found_handling": "single-page-application"
   }
 }

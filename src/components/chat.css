@@ -382,6 +382,13 @@
   align-items: center;
   height: 16px;
 }
+.chat-error {
+  border: 1px solid var(--chat-line);
+  border-left: 3px solid var(--chat-accent);
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+}
 .chat-thinking > span:not(.chat-sr-only) {
   width: 4px;
   height: 4px;
@@ -548,11 +555,6 @@
     opacity: 0.3;
   }
 }
-@media (min-width: 1400px) {
-  .chat-messages {
-    height: 410px;
-  }
-}
 @media (max-width: 1000px) {
   .chat-layout {
     grid-template-columns: 220px minmax(0, 1fr);
@@ -714,6 +716,100 @@
   .chat-page * {
     scroll-behavior: auto;
     transition: none;
+  }
+}
+
+/* Fit the composer into the initial viewport; only the transcript and the
+   optional profile scroll as their content grows. Match the site header sizes. */
+.chat-page {
+  height: calc(100dvh - 93px);
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  padding-top: 24px;
+  padding-bottom: 16px;
+}
+.chat-page-heading {
+  margin-bottom: 20px;
+}
+.chat-page-heading h1 {
+  font-size: clamp(28px, 3vw, 40px);
+  margin: 10px 0;
+  letter-spacing: -1.5px;
+}
+.chat-layout {
+  min-height: 0;
+  align-items: stretch;
+}
+.chat-profile {
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.chat-window {
+  min-height: 0;
+}
+.chat-window-header,
+.chat-composer-area {
+  flex-shrink: 0;
+}
+.chat-messages {
+  height: auto;
+  min-height: 0;
+  flex: 1 1 0;
+}
+.chat-page-footnote {
+  margin-top: 12px;
+}
+@media (max-width: 740px) {
+  .chat-page {
+    padding-top: 14px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+  .chat-page-heading {
+    margin-bottom: 14px;
+  }
+  .chat-page-heading h1 {
+    font-size: 28px;
+  }
+  .chat-mobile-break,
+  .chat-profile {
+    display: none;
+  }
+  .chat-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    gap: 0;
+  }
+  .chat-suggestions {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 4px;
+    margin-bottom: 8px;
+  }
+  .chat-suggestions > button {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .chat-window-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+@media (max-width: 680px) {
+  .chat-page {
+    height: calc(100dvh - 75px);
+  }
+}
+@media (max-height: 600px) {
+  .chat-page {
+    padding-top: 8px;
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .chat-page-heading,
+  .chat-page-footnote {
+    display: none;
   }
 }
 

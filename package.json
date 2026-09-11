@@ -12,6 +12,12 @@
     "preview": "vite preview --host 127.0.0.1",
     "lint": "eslint .",
     "test": "vitest",
+    "rag:inspect": "node --experimental-strip-types src/rag/inspect.ts",
+    "rag:dev": "wrangler dev --config wrangler.rag.jsonc --ip 127.0.0.1",
+    "rag:index": "node --experimental-strip-types src/rag/manage.ts index",
+    "rag:query": "node --experimental-strip-types src/rag/manage.ts query",
+    "rag:answer": "node --experimental-strip-types src/rag/manage.ts answer",
+    "rag:evaluate": "node --experimental-strip-types src/rag/manage.ts evaluate",
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {

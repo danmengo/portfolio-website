@@ -18,7 +18,7 @@ function NavigationEffects() {
   useEffect(() => {
     const titles: Record<string, string> = {
       "/": "full-stack & AI/ML engineer",
-      "/chat": "meet my AI · conversation preview",
+      "/chat": "meet my AI · portfolio guide",
       "/resume": "résumé",
       "/projects/splitsmart": "SplitSmart · full-stack project",
       "/projects/sports-analytics-agent": "Sports Analytics Agent · AI/ML project",

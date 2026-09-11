@@ -1,35 +1,6 @@
 import { ArrowLeft, ArrowUpRight, Download, Printer } from 'lucide-react';
+import { projects } from '../data/projects';
 import './resume.css';
-
-const projects = [
-  {
-    name: 'SplitSmart',
-    date: 'Feb. 2026',
-    technology: 'Next.js, TypeScript, Supabase, Prisma, PostgreSQL, Vercel',
-    bullets: [
-      'Built a full-stack accounting app with TypeScript, Prisma ORM, and PostgreSQL, supporting multi-user groups with expense splitting calculations and reducing manual tracking.',
-      'Designed an interactive Recharts dashboard showing per-user spending breakdowns and monthly trends across shared expense groups.',
-    ],
-  },
-  {
-    name: 'Fabflix',
-    date: 'Apr. 2025',
-    technology: 'Apache Tomcat, JDBC, Maven, AWS EC2',
-    bullets: [
-      'Built and deployed a scalable full-stack web app on AWS EC2 with load balancing and master-slave MySQL replication.',
-      'Used JDBC connection pooling, batch inserts, and in-memory caching to improve XML parsing and insert speed by 40% and eliminate unnecessary look-ups.',
-    ],
-  },
-  {
-    name: 'Sports Analytics Agent',
-    date: 'Oct. 2025',
-    technology: 'Google Cloud, ADK, MCP, Gemini, BigQuery, Cloud Run, Streamlit',
-    bullets: [
-      'Built and deployed an end-to-end AI analytics platform with ADK and Cloud Run, integrating real-time MLB APIs and BigQuery for scalable data ingestion and serving.',
-      'Developed a BQML Win Probability model in a BigQuery data lake, enabling real-time outcome predictions and detailed performance analysis.',
-    ],
-  },
-];
 
 const skills = [
   ['Languages', 'Python, JavaScript/TypeScript, C/C++, SQL, C#, Java'],

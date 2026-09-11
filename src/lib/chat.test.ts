@@ -58,7 +58,8 @@ describe("portfolio conversation preview", () => {
 
   it("returns Fabflix's documented performance result", () => {
     const answer = copy("What performance result did Fabflix achieve?");
-    expect(answer).toMatch(/connection pooling, batch inserts, and caching/);
+    expect(answer).toMatch(/connection pooling and batch inserts/);
+    expect(answer).toMatch(/In-memory caching eliminated unnecessary lookups/);
     expect(answer).toMatch(/40%/);
   });
 

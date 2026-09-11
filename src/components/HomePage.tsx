@@ -178,7 +178,7 @@ export default function HomePage() {
               Ask my AI <ArrowUpRight size={17} />
             </Link>
             <span className="preview-caption">
-              Conversation preview · sample answers for now
+              AI answers grounded in résumé and project notes
             </span>
           </div>
           <div className="home-chat-preview">
@@ -346,7 +346,7 @@ export default function HomePage() {
             <Linkedin size={16} /> LinkedIn <ArrowUpRight size={14} />
           </a>
           <Link className="text-link" to="/chat">
-            <MessageSquare size={16} /> Try the AI preview{" "}
+            <MessageSquare size={16} /> Ask the AI guide{" "}
             <ArrowRight size={14} />
           </Link>
         </div>
