@@ -4179,6 +4179,10 @@ h2 {
 
 /* Make selection distinct from hover and keep every layer inside the stage. */
 .stack-visual .stack-stage { height: 430px; }
+.stack-visual .stack-planes { top: -18px; }
+@media (min-width: 681px) {
+  .hero > .stack-visual { top: -24px; }
+}
 .stack-visual .stack-plane {
   background: linear-gradient(120deg, #f6f5ed, #dce1d3);
   border-color: #aab39c;
