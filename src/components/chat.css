@@ -1062,3 +1062,30 @@
 @media (prefers-reduced-motion: reduce) {
   .chat-layout, .chat-profile-shell { transition: none; transform: none; }
 }
+
+/* Chat readability: retain a fixed viewport with larger text inside it. */
+.chat-message-content > p,
+.chat-profile-note,
+.chat-profile-description,
+.chat-profile-link { font-size: 16px; line-height: 1.65; }
+.chat-window-header p,
+.chat-message-author,
+.chat-reset,
+.chat-source strong,
+.chat-source small,
+.chat-suggestions > button,
+.chat-privacy,
+.chat-page-footnote,
+.chat-preview-note { font-size: 14px; line-height: 1.5; }
+.chat-message-author > span,
+.chat-profile-tag,
+.chat-conversation-label { font-size: 12px; line-height: 1.4; }
+.chat-suggestions { flex-wrap: nowrap; overflow-x: auto; padding: 3px; }
+.chat-suggestions > button { flex-shrink: 0; }
+.chat-source { min-width: 0; }
+.chat-source > span { min-width: 0; overflow-wrap: anywhere; }
+@media (max-height: 500px) {
+  .chat-suggestions { display: none; }
+  .chat-composer-area { padding-top: 4px; padding-bottom: 6px; }
+  .chat-privacy { margin-top: 4px; font-size: 12px; }
+}

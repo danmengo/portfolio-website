@@ -4057,3 +4057,91 @@ h2 {
     color: #3e413a;
   }
 }
+
+/* Screen reading scale: body copy 16px, supporting text and controls 14px. */
+@media screen {
+  .navigation,
+  .button,
+  .text-link,
+  .hero-actions .button,
+  .hero-actions .text-link,
+  .project-detail-header > .button,
+  .experience-row .button,
+  .project-bottom-nav .text-link,
+  .work-filters > button,
+  .case-tabs > button,
+  .pipeline-steps > button,
+  .optimization-explorer button { font-size: 16px; line-height: 1.5; }
+
+  .hero-description,
+  .section-heading p,
+  .project-card > p,
+  .ai-invitation-copy > p,
+  .preview-user-bubble,
+  .preview-ai-bubble p,
+  .about-intro > p,
+  .about-notes p,
+  .experience-row p,
+  .contact-bottom > p,
+  .case-study-intro > div > p,
+  .case-notes-content p,
+  .architecture-section > p,
+  .architecture-description,
+  .pipeline-detail p,
+  .optimization-explorer p,
+  .document-results blockquote p,
+  .document-results > p,
+  .document-layout details p,
+  .live-task p { font-size: 16px; line-height: 1.7; }
+
+  .hero-eyebrow,
+  .eyebrow,
+  .edition-label,
+  .sample-label,
+  .hero-footnote,
+  .project-meta .eyebrow,
+  .project-tags > span,
+  .preview-caption,
+  .ai-invitation-copy > .eyebrow,
+  .about-intro > .eyebrow,
+  .contact-section > .eyebrow,
+  .contact-bottom > .text-link,
+  .site-footer,
+  .site-footer > span,
+  .back-link,
+  .sample-notice,
+  .playground-live,
+  .demo-note,
+  .demo-control-grid label,
+  .range-value,
+  .demo-result-card > p,
+  .architecture-nodes button,
+  .layer-selector button,
+  .visual-caption p,
+  .chat-preview-top strong,
+  .document-search label,
+  .sentiment-layout label,
+  .document-results cite,
+  .document-layout summary,
+  .example-inputs > button,
+  .empty-column,
+  .playground-toolbar,
+  .icon-text-button { font-size: 14px; line-height: 1.5; }
+
+  .hero-eyebrow, .eyebrow, .edition-label { letter-spacing: 0.08em; }
+  .project-tags, .section-topline, .project-meta, .site-footer { flex-wrap: wrap; gap: 10px; }
+  .work-filters { flex-wrap: wrap; }
+  .project-tags > span { padding: 5px 9px; }
+  .about-notes h3 { font-size: 18px; }
+  .site-footer { height: auto; min-height: 80px; padding-top: 20px; padding-bottom: 20px; }
+  .sample-notice { align-items: flex-start; flex-wrap: wrap; }
+  .theme-toggle > span { font-size: 12px; }
+  .preview-questions a { font-size: 14px; line-height: 1.5; }
+}
+@media screen {
+  .hero-copy, .stack-visual { min-width: 0; }
+  .hero-actions, .hero-footnote { flex-wrap: wrap; }
+  .ticker-content { flex-wrap: wrap; gap: 12px 20px; padding-top: 14px; padding-bottom: 14px; font-size: 14px; line-height: 1.5; }
+  .ticker-content > span:first-child { font-size: 14px; }
+  .ticker-content > span { white-space: normal; }
+}

@@ -537,3 +537,32 @@
       0 24px 55px #00000030;
   }
 }
+
+/* Keep the on-screen résumé comfortable to read without changing its print layout. */
+@media screen {
+  .resume-intro-copy,
+  .resume-document p,
+  .resume-education-block p,
+  .resume-project li,
+  .resume-focus-list li { font-size: 16px; line-height: 1.7; }
+  .resume-back,
+  .resume-print-button,
+  .resume-download-button,
+  .resume-eyebrow,
+  .resume-document-label,
+  .resume-document-mark,
+  .resume-contact-row,
+  .resume-section-title,
+  .resume-sample-label,
+  .resume-document .resume-placeholder,
+  .resume-project .resume-project-category,
+  .resume-template-note p,
+  .resume-document-footer,
+  .resume-print-help { font-size: 14px; line-height: 1.5; }
+  .resume-project h4,
+  .resume-education-block h4 { font-size: 18px; line-height: 1.4; }
+  .resume-document-topline,
+  .resume-document-footer,
+  .resume-project-heading { flex-wrap: wrap; gap: 12px; }
+  .resume-contact-row a { overflow-wrap: anywhere; }
+}
