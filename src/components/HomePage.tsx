@@ -62,7 +62,7 @@ export default function HomePage() {
               Explore my work <ArrowDown size={16} />
             </a>
             <Link className="text-link" to="/chat">
-              <Sparkles size={17} /> Meet my AI <ArrowUpRight size={15} />
+              <Sparkles size={17} /> Meet mengoAI <ArrowUpRight size={15} />
             </Link>
           </div>
           <div className="hero-footnote">
@@ -177,7 +177,7 @@ export default function HomePage() {
               this portfolio.
             </p>
             <Link className="button button-dark" to="/chat">
-              Ask my AI <ArrowUpRight size={17} />
+              Ask mengoAI <ArrowUpRight size={17} />
             </Link>
             <span className="preview-caption">
               AI answers grounded in résumé and project notes
@@ -189,7 +189,7 @@ export default function HomePage() {
                 d<span>✦</span>
               </div>
               <div>
-                <strong>danmengo / AI</strong>
+                <strong>mengoAI</strong>
                 <span>A little context goes a long way.</span>
               </div>
               <span className="preview-pill">PREVIEW</span>
@@ -348,7 +348,7 @@ export default function HomePage() {
             <Linkedin size={16} /> LinkedIn <ArrowUpRight size={14} />
           </a>
           <Link className="text-link" to="/chat">
-            <MessageSquare size={16} /> Ask the AI guide{" "}
+            <MessageSquare size={16} /> Ask mengoAI{" "}
             <ArrowRight size={14} />
           </Link>
         </div>

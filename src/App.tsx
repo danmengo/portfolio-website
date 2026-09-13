@@ -19,7 +19,7 @@ function NavigationEffects() {
   useEffect(() => {
     const titles: Record<string, string> = {
       "/": "full-stack & AI/ML engineer",
-      "/chat": "meet my AI · portfolio guide",
+      "/chat": "mengoAI · portfolio conversation",
       "/resume": "résumé",
       "/projects/splitsmart": "SplitSmart · full-stack project",
       "/projects/sports-analytics-agent": "Sports Analytics Agent · AI/ML project",
@@ -101,7 +101,7 @@ function Header() {
               className={`nav-ai ${pathname === "/chat" ? "nav-ai-active" : ""}`}
               onClick={() => setOpen(false)}
             >
-              <Sparkles size={15} /> Ask my AI <span className="nav-ai-dot" />
+              <Sparkles size={15} /> mengoAI <span className="nav-ai-dot" />
             </Link>
           </nav>
           <ThemeToggle />

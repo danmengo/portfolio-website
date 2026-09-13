@@ -12,6 +12,8 @@ import {
   Code2,
   Github,
   MessageCircle,
+  PanelLeftClose,
+  PanelLeftOpen,
   RotateCcw,
   Sparkles,
 } from "lucide-react";
@@ -54,6 +56,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
   const sending = useRef(false);
   const activeRequest = useRef<AbortController | undefined>(undefined);
   const [error, setError] = useState("");
+  const [profileOpen, setProfileOpen] = useState(false);
   const conversation = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLTextAreaElement>(null);
   const lastReply = [...messages]
@@ -138,20 +141,24 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
   }
 
   return (
-    <div className="chat-page">
+    <div className="chat-page" onKeyDown={(event) => {
+      if (event.key === "Escape" && profileOpen) {
+        setProfileOpen(false);
+        document.querySelector<HTMLButtonElement>(".chat-panel-toggle")?.focus();
+      }
+    }}>
       <div className="chat-page-heading">
         <div className="chat-eyebrow">
           <span /> A DIFFERENT WAY TO EXPLORE
         </div>
         <h1>
-          A portfolio.
-          <br className="chat-mobile-break" /> A conversation.
+          mengoAI
         </h1>
         <p>Curious about the work? Start with a question.</p>
       </div>
 
-      <div className="chat-layout">
-        <aside className="chat-profile" aria-label="About this conversation">
+      <div className={`chat-layout${profileOpen ? " chat-layout-expanded" : ""}`}>
+        <aside id="chat-profile-panel" className="chat-profile" hidden={!profileOpen} aria-label="About Daniel">
           <div className="chat-profile-visual" aria-hidden="true">
             <div className="chat-orbit chat-orbit-one" />
             <div className="chat-orbit chat-orbit-two" />
@@ -189,24 +196,34 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
           <div className="chat-preview-note">
             <Sparkles size={16} />
             <p>
-              <strong>A work in progress.</strong> These are curated replies
-              based on verified résumé and project details. A live AI guide
-              comes later.
+              <strong>Meet mengoAI.</strong> Daniel's AI representative answers
+              from public résumé and project notes, with sources to explore.
             </p>
           </div>
         </aside>
 
         <section
           className="chat-window"
-          aria-label="Portfolio AI conversation"
+          aria-label="mengoAI conversation"
         >
           <header className="chat-window-header">
             <div>
+              <button
+                className="chat-panel-toggle"
+                type="button"
+                aria-expanded={profileOpen}
+                aria-controls="chat-profile-panel"
+                aria-label={profileOpen ? "Collapse profile panel" : "Expand profile panel"}
+                title={profileOpen ? "Collapse profile panel" : "About Daniel"}
+                onClick={() => setProfileOpen((open) => !open)}
+              >
+                {profileOpen ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
+              </button>
               <span className="chat-window-icon">
                 <MessageCircle size={18} />
               </span>
               <div>
-                <h2>Ask my AI</h2>
+                <h2>mengoAI</h2>
                 <p>
                   <span /> AI · answers with sources
                 </p>
@@ -240,7 +257,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
                 className={`chat-message chat-message-${message.role}`}
                 key={message.id}
                 aria-label={
-                  message.role === "user" ? "Your question" : "AI guide response"
+                  message.role === "user" ? "Your question" : "mengoAI response"
                 }
               >
                 {message.role === "assistant" && (
@@ -252,7 +269,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
                   <div className="chat-message-author">
                     {message.role === "assistant" ? (
                       <>
-                        Daniel's guide <span>{message.id === 0 ? "WELCOME" : "AI"}</span>
+                        mengoAI <span>{message.id === 0 ? "WELCOME" : "AI"}</span>
                       </>
                     ) : (
                       "You"
