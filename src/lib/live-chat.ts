@@ -3,9 +3,8 @@ import { getWelcome, type ChatProject, type ChatReply } from "./chat";
 export function getLiveWelcome(project?: ChatProject): ChatReply {
   const base = getWelcome(project);
   return { ...base, suggestions: project ? base.suggestions : ["Where did you study?", "What did you teach?", "Walk me through SplitSmart"], paragraphs: [
-    "Hey! 👋 I'm mengoAI, Daniel's AI portfolio guide. Ask me about the projects, the tech, or the teaching experience.",
+    "Hey! 👋 I'm mengoAI, Daniel's AI. Ask me about my projects or any questions to learn more about me.",
     ...(project ? [base.paragraphs[0]] : []),
-    "I work from Daniel's public résumé and project notes. If a detail isn't there, I'll say so. I can still get things wrong. I keep track of the current project, but not the full conversation.",
   ] };
 }
 
