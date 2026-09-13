@@ -1,0 +1,30 @@
+.template-art {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  background: var(--surface);
+  color: inherit;
+  text-align: center;
+}
+
+.template-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  margin: 40px 0 80px;
+}
+
+.template-section {
+  border-top: 1px solid currentColor;
+  padding-top: 24px;
+}
+
+.template-section h2 { font-size: 22px; margin: 0 0 12px; }
+.template-section p { line-height: 1.7; opacity: 0.7; }
+
+@media (max-width: 680px) {
+  .template-sections { grid-template-columns: 1fr; }
+}

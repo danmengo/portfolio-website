@@ -12,6 +12,7 @@ import ProjectPage from "./components/ProjectPage";
 import ChatPage from "./components/ChatPage";
 import ResumePage from "./components/ResumePage";
 import ThemeToggle from "./components/ThemeToggle";
+import ProjectTemplatePage from "./components/ProjectTemplate";
 
 function NavigationEffects() {
   const { pathname, hash, key } = useLocation();
@@ -23,6 +24,7 @@ function NavigationEffects() {
       "/projects/splitsmart": "SplitSmart · full-stack project",
       "/projects/sports-analytics-agent": "Sports Analytics Agent · AI/ML project",
       "/projects/fabflix": "Fabflix · full-stack project",
+      "/projects/new-project": "New project · coming soon",
     };
     document.title = `Daniel Meng — ${titles[pathname] ?? "page not found"}`;
     const frame = requestAnimationFrame(() => {
@@ -156,6 +158,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/projects/:id" element={<ProjectPage />} />
+          <Route path="/projects/new-project" element={<ProjectTemplatePage />} />
           <Route path="/chat" element={<ChatRoute />} />
           <Route path="/resume" element={<ResumePage />} />
           <Route path="*" element={<NotFound />} />

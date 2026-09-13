@@ -16,6 +16,7 @@ import {
 import { projects } from "../data/projects";
 import ProjectArtwork from "./ProjectArtwork";
 import StackDiagram from "./StackDiagram";
+import { ProjectTemplateCard } from "./ProjectTemplate";
 
 const filters = [
   "All work",
@@ -101,7 +102,7 @@ export default function HomePage() {
         <div className="section-heading">
           <div>
             <h2 id="work-heading">Ideas you can click on.</h2>
-            <p>Three projects spanning product engineering, AI, and data systems.</p>
+            <p>Projects spanning product engineering, AI, and data systems.</p>
           </div>
           <a
             className="text-link github-text"
@@ -121,7 +122,7 @@ export default function HomePage() {
               onClick={() => setFilter(item)}
             >
               {item}
-              {item === "All work" && <span>03</span>}
+              {item === "All work" && <span>{String(projects.length + 1).padStart(2, "0")}</span>}
             </button>
           ))}
         </div>
@@ -154,6 +155,7 @@ export default function HomePage() {
               </div>
             </article>
           ))}
+          {filter === "All work" && <ProjectTemplateCard />}
         </div>
       </section>
 
