@@ -302,7 +302,8 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
               </div>
             </form>
             <p className="chat-privacy">
-              Questions and project context are processed by Cloudflare AI. Chat history stays in this tab.
+              Messages are processed by Cloudflare AI. Avoid sharing sensitive information.{" "}
+              <Link to="/privacy" target="_blank" rel="noopener noreferrer" aria-label="Privacy policy (opens in a new tab)">Privacy</Link>
             </p>
           </div>
         </section>

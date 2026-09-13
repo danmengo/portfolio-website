@@ -11,6 +11,7 @@ import HomePage from "./components/HomePage";
 import ProjectPage from "./components/ProjectPage";
 import ChatPage from "./components/ChatPage";
 import ResumePage from "./components/ResumePage";
+import PrivacyPage from "./components/PrivacyPage";
 import ThemeToggle from "./components/ThemeToggle";
 import ProjectTemplatePage from "./components/ProjectTemplate";
 
@@ -21,6 +22,7 @@ function NavigationEffects() {
       "/": "full-stack & AI/ML engineer",
       "/chat": "mengoAI · portfolio conversation",
       "/resume": "résumé",
+      "/privacy": "privacy policy",
       "/projects/splitsmart": "SplitSmart · full-stack project",
       "/projects/sports-analytics-agent": "Sports Analytics Agent · AI/ML project",
       "/projects/fabflix": "Fabflix · full-stack project",
@@ -163,6 +165,7 @@ export default function App() {
           <Route path="/projects/new-project" element={<ProjectTemplatePage />} />
           <Route path="/chat" element={<ChatRoute />} />
           <Route path="/resume" element={<ResumePage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
@@ -172,6 +175,7 @@ export default function App() {
         </Link>
         <span>A little curiosity. A lot of possibility.</span>
         <div>
+          <Link to="/privacy">Privacy</Link>
           <span className="footer-edition">PORTFOLIO / 2026</span>
           <a
             href="https://github.com/danmengo"
