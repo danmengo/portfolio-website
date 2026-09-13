@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowUpRight, Braces, Database, Sparkles } from "lucide-react";
 
 const layers = [
@@ -26,6 +26,7 @@ const layers = [
 
 export default function StackDiagram() {
   const [active, setActive] = useState(1);
+  const controls = useRef<(HTMLButtonElement | null)[]>([]);
   const current = layers[active];
   return (
     <div className="stack-visual">
@@ -46,6 +47,7 @@ export default function StackDiagram() {
         >
           {layers.map((layer, index) => (
             <button
+              type="button"
               key={layer.name}
               className={`stack-plane plane-${index} ${active === index ? "plane-active" : ""}`}
               onClick={() => setActive(index)}
@@ -72,17 +74,28 @@ export default function StackDiagram() {
         </div>
       </div>
       <div className="visual-caption" aria-live="polite">
-        <div>
+        <div key={active} className="layer-caption-copy">
           <span className="eyebrow">{current.label}</span>
           <p>{current.description}</p>
         </div>
         <ArrowUpRight size={23} />
       </div>
-      <div className="layer-selector">
+      <div className="layer-selector" role="group" aria-label="Select a software layer">
         {layers.map((layer, index) => (
           <button
+            type="button"
+            ref={(element) => { controls.current[index] = element; }}
             key={layer.name}
             onClick={() => setActive(index)}
+            onKeyDown={(event) => {
+              const next = event.key === "ArrowRight" ? (index + 1) % layers.length
+                : event.key === "ArrowLeft" ? (index + layers.length - 1) % layers.length
+                : event.key === "Home" ? 0 : event.key === "End" ? layers.length - 1 : undefined;
+              if (next === undefined) return;
+              event.preventDefault();
+              setActive(next);
+              controls.current[next]?.focus();
+            }}
             aria-pressed={active === index}
             className={active === index ? "selected" : ""}
           >

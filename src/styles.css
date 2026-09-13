@@ -4176,3 +4176,36 @@ h2 {
   .stack-visual .stack-stage { mask-image: none; }
   .stack-visual .coordinate { z-index: 5; padding: 2px 4px; background: var(--paper); }
 }
+
+/* Make selection distinct from hover and keep every layer inside the stage. */
+.stack-visual .stack-stage { height: 430px; }
+.stack-visual .stack-plane {
+  background: linear-gradient(120deg, #f6f5ed, #dce1d3);
+  border-color: #aab39c;
+  box-shadow: -1px 1px 0 #d4d7c9, -4px 5px 0 #c5cdba, -5px 7px 0 #aab39c, 3px 13px 16px #4a513919;
+  transform: rotateX(56deg) rotateZ(-36deg);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), background 220ms ease, border-color 220ms ease, box-shadow 320ms ease;
+}
+.stack-visual .stack-plane:hover { transform: translateY(-4px) rotateX(56deg) rotateZ(-36deg); }
+.stack-visual .stack-plane.plane-active {
+  transform: translateY(-16px) rotateX(56deg) rotateZ(-36deg);
+  background: linear-gradient(120deg, #ffd4bd, #f4a988);
+  border-color: #b96740;
+  box-shadow: -1px 1px 0 #f2bb9b, -4px 5px 0 #e6a185, -5px 7px 0 #ba704c, 4px 22px 25px #9b5c4330;
+}
+.stack-visual .stack-plane .plane-index { color: #4d5842; }
+.stack-visual .stack-plane.plane-active .plane-index { color: #723a21; }
+.stack-visual .stack-plane > span,
+.stack-visual .floating-label,
+.stack-visual .coordinate { pointer-events: none; }
+.stack-visual .layer-selector button { transition: background 180ms ease, color 180ms ease; }
+.stack-visual .layer-selector button.selected { background: var(--surface-warm); box-shadow: inset 0 -2px var(--accent); }
+.stack-visual .visual-caption { align-items: flex-start; min-height: 110px; }
+.layer-caption-copy { animation: layer-caption-in 220ms ease both; }
+@keyframes layer-caption-in { from { opacity: 0; translate: 0 4px; } to { opacity: 1; translate: 0 0; } }
+@media (max-width: 1100px) { .stack-visual .stack-stage { height: 380px; } }
+@media (max-width: 680px) { .stack-visual .stack-stage { height: 390px; } }
+@media (prefers-reduced-motion: reduce) {
+  .stack-visual .stack-plane, .stack-visual .layer-selector button { transition: none; }
+  .layer-caption-copy { animation: none; }
+}
