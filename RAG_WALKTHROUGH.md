@@ -201,3 +201,20 @@ The next learning exercise is evaluation: write ten new questions with expected
 evidence and answers before running them. Separate retrieval misses from generation
 mistakes. That tells you whether to improve content, search, context handling or
 the prompt instead of changing everything at once.
+
+## Changing the AI's voice
+
+`src/rag/personality.ts` contains the system prompt used by `generateReply`.
+It asks for Daniel's first-person voice, casual wording, light slang and occasional
+emojis. The greeting in `src/lib/live-chat.ts` tells visitors it is Daniel's AI
+speaking in his voice, rather than Daniel replying live.
+
+The system prompt controls how an answer is written. Retrieved passages supply
+the facts it can use. Changing the voice does not train the model or require
+reindexing the portfolio. Model, temperature, retrieval, and usage limits are
+unchanged. The AI should acknowledge missing details and must not invent personal
+stories, preferences, or commitments to sound more human.
+
+To evaluate a voice change, try a project walkthrough, a question about an
+undocumented metric, and a direct question about whether it is really Daniel.
+Review actual model replies: unit tests alone cannot establish tone or factuality.
