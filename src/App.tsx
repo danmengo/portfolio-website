@@ -147,8 +147,10 @@ function NotFound() {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+  const isChat = pathname === "/chat" || pathname === "/chat/";
   return (
-    <>
+    <div className={isChat ? "app-chat" : undefined}>
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
@@ -164,7 +166,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <footer className="site-footer page-width">
+      {!isChat && <footer className="site-footer page-width">
         <Link to="/" className="footer-brand">
           Daniel Meng<span>.</span>
         </Link>
@@ -180,7 +182,7 @@ export default function App() {
             <Github size={17} />
           </a>
         </div>
-      </footer>
-    </>
+      </footer>}
+    </div>
   );
 }
