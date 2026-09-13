@@ -4145,3 +4145,34 @@ h2 {
   .ticker-content > span:first-child { font-size: 14px; }
   .ticker-content > span { white-space: normal; }
 }
+
+/* The landing illustration contains readable labels, not miniature UI text. */
+@media screen {
+  .stack-visual .visual-topline,
+  .stack-visual .coordinate,
+  .stack-visual .floating-label,
+  .stack-visual .visual-caption .eyebrow,
+  .stack-visual .layer-selector button,
+  .stack-visual .layer-selector button > span {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .stack-visual .visual-topline { flex-wrap: wrap; gap: 8px 16px; letter-spacing: 0.04em; }
+  .stack-visual .visual-topline > span:last-child { display: block; white-space: nowrap; }
+  .stack-visual .status-dot { flex-shrink: 0; }
+  .stack-visual .plane-index { font-size: 18px; font-weight: 600; }
+  .stack-visual .coordinate { display: block; }
+  .stack-visual .coordinate-top { top: 14px; left: 8px; }
+  .stack-visual .coordinate-bottom { bottom: 12px; right: 8px; }
+  .stack-visual .floating-label { padding: 10px 12px; color: var(--ink); }
+  .stack-visual .visual-caption p { font-size: 16px; line-height: 1.65; max-width: none; }
+  .stack-visual .layer-selector { flex-wrap: wrap; gap: 8px; }
+  .stack-visual .layer-selector button { min-height: 44px; padding: 8px; }
+  .stack-visual .layer-selector button.selected { color: var(--ink); }
+  .stack-visual .layer-selector button.selected > span { color: var(--accent); }
+}
+@media screen {
+  .stack-visual .stack-stage { mask-image: none; }
+  .stack-visual .coordinate { z-index: 5; padding: 2px 4px; background: var(--paper); }
+}
