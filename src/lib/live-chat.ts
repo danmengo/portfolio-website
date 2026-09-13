@@ -3,13 +3,13 @@ import { getWelcome, type ChatProject, type ChatReply } from "./chat";
 export function getLiveWelcome(project?: ChatProject): ChatReply {
   const base = getWelcome(project);
   return { ...base, suggestions: project ? base.suggestions : ["Where did you study?", "What did you teach?", "Walk me through SplitSmart"], paragraphs: [
-    "Hey! 👋 I'm mengoAI, Daniel's AI, chatting in his voice—not Daniel typing live. Ask me about the projects, the tech, or the teaching experience.",
+    "Hey! 👋 I'm mengoAI, Daniel's AI portfolio guide. Ask me about the projects, the tech, or the teaching experience.",
     ...(project ? [base.paragraphs[0]] : []),
     "I work from Daniel's public résumé and project notes. If a detail isn't there, I'll say so. I can still get things wrong, so check the sources. I keep track of the current project, but not the full conversation.",
   ] };
 }
 
-const allowedSources = new Set(["/resume", "/projects/splitsmart", "/projects/fabflix", "/projects/sports-analytics-agent"]);
+const allowedSources = new Set(["/chat", "/resume", "/projects/splitsmart", "/projects/fabflix", "/projects/sports-analytics-agent"]);
 export function parseReply(value: unknown): ChatReply {
   if (!value || typeof value !== "object") throw new Error("The server returned an invalid answer.");
   const body = value as Record<string, unknown>;

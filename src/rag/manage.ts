@@ -3,6 +3,7 @@ import { getPlatformProxy } from "wrangler";
 import { indexKnowledge, retrieveHybrid, type AiBinding, type VectorIndex } from "./semantic.ts";
 import { retrieve } from "./retrieve.ts";
 import { generateReply } from "./answer.ts";
+import { contextualize } from "./context.ts";
 
 const command = argv[2];
 if (!["index", "query", "answer", "evaluate"].includes(command)) throw new Error("Use index, query <question>, answer <question>, or evaluate");
@@ -11,12 +12,12 @@ try {
   const { AI, VECTOR_INDEX } = platform.env;
   if (command === "index") console.log(JSON.stringify(await indexKnowledge(AI, VECTOR_INDEX), null, 2));
   if (command === "query") {
-    const question = argv.slice(3).join(" ");
+    const question = contextualize(argv.slice(3).join(" ")).query;
     if (!question || question.length > 500) throw new Error("Provide a question of 1–500 characters");
     console.log(JSON.stringify({ question, keyword: retrieve(question), hybrid: await retrieveHybrid(question, AI, VECTOR_INDEX) }, null, 2));
   }
   if (command === "answer") {
-    const question = argv.slice(3).join(" ");
+    const question = contextualize(argv.slice(3).join(" ")).query;
     if (!question || question.length > 500) throw new Error("Provide a question of 1–500 characters");
     const passages = await retrieveHybrid(question, AI, VECTOR_INDEX);
     console.log(JSON.stringify({ question, evidence: passages.map((p) => p.id), reply: await generateReply(question, passages, AI) }, null, 2));

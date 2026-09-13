@@ -1,7 +1,8 @@
 import { knowledge } from "./knowledge.ts";
 import { retrieve } from "./retrieve.ts";
 
-export const EMBEDDING_MODEL = "@cf/baai/bge-base-en-v1.5";
+import { EMBEDDING_MODEL } from "./models.ts";
+export { EMBEDDING_MODEL } from "./models.ts";
 export const EMBEDDING_DIMENSIONS = 768;
 export const POOLING = "cls";
 // Starting threshold, evaluated by rag:evaluate; not a confidence probability.

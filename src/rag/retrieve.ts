@@ -3,7 +3,12 @@ import { knowledge } from "./knowledge.ts";
 const stopWords = new Set("a an the is are was were what which how why did does do has have had he his daniel meng you your me about tell use used with and or to of in for it that this".split(" "));
 
 function tokens(text: string): string[] {
-  return (text.toLowerCase().match(/[a-z0-9]+/g) ?? []).filter((term) => term.length > 1 && !stopWords.has(term));
+  const aliases: Record<string, string> = {
+    study: "education", studied: "education", studying: "education",
+    school: "education", college: "education", university: "education",
+    major: "education", majored: "education", degree: "education",
+  };
+  return (text.toLowerCase().match(/[a-z0-9]+/g) ?? []).filter((term) => term.length > 1 && !stopWords.has(term)).map((term) => aliases[term] ?? term);
 }
 
 const indexed = knowledge.map((passage) => ({ passage, terms: tokens(`${passage.title} ${passage.text}`) }));

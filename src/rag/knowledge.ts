@@ -1,4 +1,5 @@
 import { projects } from "../data/projects.ts";
+import { ANSWER_MODEL, ANSWER_MODEL_NAME, EMBEDDING_MODEL, EMBEDDING_MODEL_NAME } from "./models.ts";
 
 export interface Passage {
   id: string;
@@ -10,6 +11,7 @@ export interface Passage {
 // Explicit allowlist of public facts; never ingest the repository or private files.
 // Project passages reuse the same content that the portfolio displays.
 export const knowledge: Passage[] = [
+  { id: "mengoai", title: "About mengoAI", href: "/chat", text: `mengoAI is Daniel Meng's AI portfolio representative. It uses ${ANSWER_MODEL_NAME} (${ANSWER_MODEL}) to generate chat answers through Cloudflare Workers AI. It uses ${EMBEDDING_MODEL_NAME} (${EMBEDDING_MODEL}) for 768-dimensional text embeddings. Cloudflare Vectorize searches the portfolio notes, combined with keyword search, before the answer model writes a reply. This is retrieval-augmented generation (RAG), not a model trained on Daniel's resume. Questions about this chatbot's AI model, LLM, provider, or how mengoAI works refer to these models, not the Sports Analytics Agent's Gemini or BQML models.` },
   ...projects.flatMap((project) => [
     { id: `${project.id}-overview`, title: `${project.name}: overview`, href: `/projects/${project.id}`, text: `${project.name} (${project.date}). ${project.description} ${project.problem}` },
     { id: `${project.id}-technology`, title: `${project.name}: technologies`, href: `/projects/${project.id}`, text: `${project.name}. ${project.approach}` },

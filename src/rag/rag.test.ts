@@ -19,6 +19,11 @@ describe("retrieval evaluation baseline", () => {
     ["How did Fabflix improve XML parsing?", "fabflix-results"],
     ["What did Daniel teach in Python classes?", "teaching"],
     ["What is his UCI GPA?", "education"],
+    ["Where did I study?", "education"],
+    ["What did I study?", "education"],
+    ["Where did you go to school?", "education"],
+    ["What was your major?", "education"],
+    ["What AI model is this?", "mengoai"],
     ["What certifications did Daniel earn?", "credentials"],
     ["Which project uses Prisma?", "splitsmart-technology"],
     ["Tell me about BQML", "sports-analytics-agent-overview"],
@@ -42,6 +47,18 @@ describe("retrieval evaluation baseline", () => {
 });
 
 describe("protected chat endpoint", () => {
+  it.each([
+    ["Where did I study?", "education"],
+    ["What did I study?", "education"],
+    ["What AI model is this?", "mengoai"],
+  ])("answers %s after discussing a project", async (question, evidenceId) => {
+    const { env, run } = setup();
+    const response = await worker.fetch(request({ question, project: "fabflix" }), env);
+    expect(response.status).toBe(200);
+    expect((await response.json()).project).toBeUndefined();
+    const evidence = JSON.parse(run.mock.calls[0][1].messages[1].content).evidence;
+    expect(evidence.map((p: { id: string }) => p.id)).toContain(evidenceId);
+  });
   it.each([undefined, "false"])("does not call AI when disabled (%s)", async (flag) => {
     const { env, run, budgetFetch } = setup(); env.CHAT_ENABLED = flag;
     expect((await worker.fetch(request(), env)).status).toBe(503);

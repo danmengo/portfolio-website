@@ -23,6 +23,7 @@ import {
   type ChatReply,
 } from "../lib/chat";
 import { getLiveWelcome, requestReply } from "../lib/live-chat";
+import { ANSWER_MODEL_NAME, EMBEDDING_MODEL_NAME } from "../rag/models";
 import "./chat.css";
 
 interface ChatMessage {
@@ -189,6 +190,8 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
             <p>
               <strong>Meet mengoAI.</strong> Daniel's AI representative answers
               from public résumé and project notes, with sources to explore.
+              {" "}{ANSWER_MODEL_NAME} writes the answers; {EMBEDDING_MODEL_NAME}
+              {" "}helps find relevant notes through Cloudflare Workers AI.
             </p>
           </div>
         </aside>
