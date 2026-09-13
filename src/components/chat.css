@@ -1089,3 +1089,54 @@
   .chat-composer-area { padding-top: 4px; padding-bottom: 6px; }
   .chat-privacy { margin-top: 4px; font-size: 12px; }
 }
+
+/* Profile is a compact overlay; opening it never changes the conversation width. */
+.chat-layout, .chat-layout-expanded { grid-template-columns: minmax(0, 1fr); gap: 0; transition: none; }
+.chat-profile-shell {
+  position: absolute;
+  z-index: 7;
+  top: 68px;
+  left: 10px;
+  bottom: auto;
+  width: min(290px, calc(100% - 20px));
+  border-radius: 16px;
+}
+.chat-profile-shell .chat-profile {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px var(--shadow);
+}
+.chat-panel-dismiss { position: absolute; inset: 64px 0 0; z-index: 6; border: 0; background: transparent; cursor: default; }
+.chat-panel-identity { display: flex; align-items: center; gap: 12px; }
+.chat-panel-avatar { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: var(--surface-warm); color: var(--ink); font-size: 22px; font-weight: 600; }
+.chat-panel-identity h2 { margin: 0 0 3px; font-size: 18px; }
+.chat-panel-identity p { margin: 0; font-size: 14px; color: var(--muted); }
+.chat-panel-intro { margin: 18px 0; font-size: 16px; line-height: 1.6; color: var(--muted); }
+.chat-panel-links { display: grid; gap: 4px; }
+.chat-panel-links a { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px; border-radius: 8px; font-size: 16px; }
+.chat-panel-links a > svg:last-child { margin-left: auto; }
+.chat-panel-links a:hover { background: var(--surface-soft); }
+.chat-panel-links a:focus-visible { outline-offset: 0; }
+.mengo-loading { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0 20px; color: var(--muted); }
+.mengo-loading-icon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; color: var(--accent); background: var(--surface-warm); animation: mengo-breathe 1.6s ease-in-out infinite; }
+.mengo-loading > div { width: min(260px, 75%); }
+.mengo-loading-label { display: flex; align-items: center; gap: 8px; font-size: 14px; line-height: 32px; }
+.mengo-loading-dots { display: flex; gap: 4px; }
+.mengo-loading-dots i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; animation: mengo-breathe 1.2s ease-in-out infinite; }
+.mengo-loading-dots i:nth-child(2) { animation-delay: 150ms; }
+.mengo-loading-dots i:nth-child(3) { animation-delay: 300ms; }
+.mengo-loading-line { display: block; height: 8px; margin-top: 8px; border-radius: 8px; background: linear-gradient(90deg, var(--surface-soft) 25%, var(--line) 50%, var(--surface-soft) 75%); background-size: 200% 100%; animation: mengo-shimmer 1.6s linear infinite; }
+.mengo-loading-line-short { width: 65%; }
+@keyframes mengo-breathe { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+@keyframes mengo-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@media (max-height: 520px) {
+  .chat-panel-intro { display: none; }
+  .chat-profile-shell .chat-profile { padding: 12px; }
+  .chat-panel-links { margin-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mengo-loading-icon, .mengo-loading-dots i, .mengo-loading-line { animation: none; }
+}

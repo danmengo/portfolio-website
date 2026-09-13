@@ -5,7 +5,7 @@ export function getLiveWelcome(project?: ChatProject): ChatReply {
   return { ...base, suggestions: project ? base.suggestions : ["Where did you study?", "What did you teach?", "Walk me through SplitSmart"], paragraphs: [
     "Hey! 👋 I'm mengoAI, Daniel's AI portfolio guide. Ask me about the projects, the tech, or the teaching experience.",
     ...(project ? [base.paragraphs[0]] : []),
-    "I work from Daniel's public résumé and project notes. If a detail isn't there, I'll say so. I can still get things wrong, so check the sources. I keep track of the current project, but not the full conversation.",
+    "I work from Daniel's public résumé and project notes. If a detail isn't there, I'll say so. I can still get things wrong. I keep track of the current project, but not the full conversation.",
   ] };
 }
 

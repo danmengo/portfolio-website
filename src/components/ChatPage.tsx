@@ -23,7 +23,6 @@ import {
   type ChatReply,
 } from "../lib/chat";
 import { getLiveWelcome, requestReply } from "../lib/live-chat";
-import { ANSWER_MODEL_NAME, EMBEDDING_MODEL_NAME } from "../rag/models";
 import "./chat.css";
 
 interface ChatMessage {
@@ -149,51 +148,18 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
       }
     }}>
       <div className={`chat-layout${profileOpen ? " chat-layout-expanded" : ""}`}>
+        {profileOpen && <button className="chat-panel-dismiss" type="button" aria-label="Close profile panel" onClick={() => setProfileOpen(false)} />}
         <div className="chat-profile-shell" inert={!profileOpen} aria-hidden={!profileOpen}>
         <aside id="chat-profile-panel" className="chat-profile" aria-label="About Daniel">
-          <div className="chat-profile-visual" aria-hidden="true">
-            <div className="chat-orbit chat-orbit-one" />
-            <div className="chat-orbit chat-orbit-two" />
-            <div className="chat-profile-monogram">
-              dm<span>✳</span>
-            </div>
-            <div className="chat-orbit-point" />
+          <div className="chat-panel-identity">
+            <span className="chat-panel-avatar" aria-hidden="true">dm</span>
+            <div><h2>Daniel Meng</h2><p>Software engineer</p></div>
           </div>
-          <div className="chat-profile-name">
-            Daniel Meng<span className="chat-profile-tag">AI GUIDE</span>
-          </div>
-          <p className="chat-profile-description">
-            Full-stack curiosity.
-            <br /> An interest in AI.
-            <br /> A lot to build.
-          </p>
-          <div className="chat-profile-rule" />
-          <h2>A little context</h2>
-          <p className="chat-profile-note">
-            I'm exploring entry-level SWE roles in full-stack development and
-            AI/ML. This is a new way to get to know the portfolio.
-          </p>
-          <Link className="chat-profile-link" to="/#work">
-            <Code2 size={16} /> Browse projects{" "}
-            <ArrowUpRight size={15} />
-          </Link>
-          <a
-            className="chat-profile-link"
-            href="https://github.com/danmengo"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Github size={16} /> Find me on GitHub <ArrowUpRight size={15} />
-          </a>
-          <div className="chat-preview-note">
-            <Sparkles size={16} />
-            <p>
-              <strong>Meet mengoAI.</strong> Daniel's AI representative answers
-              from public résumé and project notes, with sources to explore.
-              {" "}{ANSWER_MODEL_NAME} writes the answers; {EMBEDDING_MODEL_NAME}
-              {" "}helps find relevant notes through Cloudflare Workers AI.
-            </p>
-          </div>
+          <p className="chat-panel-intro">Full-stack curiosity. An interest in AI. A lot to build.</p>
+          <nav className="chat-panel-links" aria-label="Explore Daniel's portfolio">
+            <Link to="/#work"><Code2 size={18} /> Browse projects <ArrowUpRight size={15} /></Link>
+            <a href="https://github.com/danmengo" target="_blank" rel="noreferrer"><Github size={18} /> GitHub <ArrowUpRight size={15} /></a>
+          </nav>
         </aside>
         </div>
 
@@ -220,7 +186,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
               <div>
                 <h1>mengoAI</h1>
                 <p>
-                  <span /> AI · answers with sources
+                  <span /> Your portfolio companion
                 </p>
               </div>
             </div>
@@ -274,53 +240,19 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
                   {message.reply?.paragraphs.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
-                  {Boolean(message.reply?.sources.length) && (
-                    <div
-                      className="chat-sources"
-                      aria-label="Related portfolio pages"
-                    >
-                      {message.reply?.sources.map((source) =>
-                        !source.href.startsWith("/") ? (
-                          <a
-                            className="chat-source"
-                            key={source.href}
-                            href={source.href}
-                            {...(source.href.startsWith("http")
-                              ? { target: "_blank", rel: "noreferrer" }
-                              : {})}
-                          >
-                            <span>
-                              <strong>{source.label}</strong>
-                              <small>{source.detail}</small>
-                            </span>
-                            <ArrowUpRight size={16} />
-                          </a>
-                        ) : (
-                          <Link
-                            className="chat-source"
-                            key={source.href}
-                            to={source.href}
-                          >
-                            <span>
-                              <strong>{source.label}</strong>
-                              <small>{source.detail}</small>
-                            </span>
-                            <ArrowUpRight size={16} />
-                          </Link>
-                        ),
-                      )}
-                    </div>
-                  )}
+
                 </div>
               </article>
             ))}
             {error && <p className="chat-error" role="alert">{error}</p>}
             {pending && (
-              <div className="chat-thinking" role="status">
-                <span />
-                <span />
-                <span />
-                <span className="chat-sr-only">Searching the portfolio and preparing an answer</span>
+              <div className="mengo-loading" role="status" aria-label="mengoAI is preparing an answer">
+                <span className="mengo-loading-icon" aria-hidden="true"><Sparkles size={20} /></span>
+                <div aria-hidden="true">
+                  <span className="mengo-loading-label">Thinking<span className="mengo-loading-dots"><i /><i /><i /></span></span>
+                  <span className="mengo-loading-line" />
+                  <span className="mengo-loading-line mengo-loading-line-short" />
+                </div>
               </div>
             )}
           </div>
