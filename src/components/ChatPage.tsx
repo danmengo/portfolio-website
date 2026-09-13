@@ -147,18 +147,9 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
         document.querySelector<HTMLButtonElement>(".chat-panel-toggle")?.focus();
       }
     }}>
-      <div className="chat-page-heading">
-        <div className="chat-eyebrow">
-          <span /> A DIFFERENT WAY TO EXPLORE
-        </div>
-        <h1>
-          mengoAI
-        </h1>
-        <p>Curious about the work? Start with a question.</p>
-      </div>
-
       <div className={`chat-layout${profileOpen ? " chat-layout-expanded" : ""}`}>
-        <aside id="chat-profile-panel" className="chat-profile" hidden={!profileOpen} aria-label="About Daniel">
+        <div className="chat-profile-shell" inert={!profileOpen} aria-hidden={!profileOpen}>
+        <aside id="chat-profile-panel" className="chat-profile" aria-label="About Daniel">
           <div className="chat-profile-visual" aria-hidden="true">
             <div className="chat-orbit chat-orbit-one" />
             <div className="chat-orbit chat-orbit-two" />
@@ -201,6 +192,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
             </p>
           </div>
         </aside>
+        </div>
 
         <section
           className="chat-window"
@@ -223,7 +215,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
                 <MessageCircle size={18} />
               </span>
               <div>
-                <h2>mengoAI</h2>
+                <h1>mengoAI</h1>
                 <p>
                   <span /> AI · answers with sources
                 </p>
@@ -356,7 +348,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
                 onKeyDown={onKeyDown}
                 placeholder="Ask me about a project, an idea, what's next…"
                 maxLength={maxLength}
-                rows={2}
+                rows={1}
                 aria-describedby="chat-input-help"
               />
               <div className="chat-composer-bottom">
