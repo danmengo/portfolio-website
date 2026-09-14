@@ -4,6 +4,7 @@ export type ProjectCategory = "Full stack" | "AI / ML";
 export interface Project {
   id: ProjectId;
   name: string;
+  liveUrl?: string;
   number: string;
   date: string;
   category: ProjectCategory;
@@ -23,6 +24,7 @@ export const projects: Project[] = [
   {
     id: "splitsmart",
     name: "SplitSmart",
+    liveUrl: "https://splitsmart-vgor.vercel.app",
     number: "01",
     date: "FEB 2026",
     category: "Full stack",
@@ -71,6 +73,7 @@ export const projects: Project[] = [
   {
     id: "sports-analytics-agent",
     name: "Sports Analytics Agent",
+    liveUrl: "https://mlb-scout-ui-t5crpvofra-uc.a.run.app/",
     number: "03",
     date: "OCT 2025",
     category: "AI / ML",

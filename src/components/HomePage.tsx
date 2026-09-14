@@ -148,6 +148,11 @@ export default function HomePage() {
                 <span>↗</span>
               </Link>
               <p>{project.description}</p>
+              {project.liveUrl && (
+                <a className="text-link project-live-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} live demo (opens in a new tab)`}>
+                  Live demo <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              )}
               <div className="project-tags">
                 {project.tags.map((tag) => (
                   <span key={tag}>{tag}</span>

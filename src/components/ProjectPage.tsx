@@ -292,10 +292,17 @@ export default function ProjectPage() {
           </h1>
           <p>{project.tagline}</p>
         </div>
-        <Link className="button button-outline" to={`/chat?project=${project.id}`}>
-          <Sparkles size={16} /> Ask about this project
-          <ArrowUpRight size={15} />
-        </Link>
+        <div className="project-detail-actions">
+          {project.liveUrl && (
+            <a className="button button-dark" href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} live demo (opens in a new tab)`}>
+              Live demo <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          )}
+          <Link className="button button-outline" to={`/chat?project=${project.id}`}>
+            <Sparkles size={16} /> Ask about this project
+            <ArrowUpRight size={15} />
+          </Link>
+        </div>
       </div>
       <div className="sample-notice resume-evidence-notice">
         <span className="mini-orange-dot" />
