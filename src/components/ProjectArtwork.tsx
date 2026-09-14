@@ -1,116 +1,20 @@
-import {
-  ArrowUpRight,
-  Check,
-  FileText,
-  MoreHorizontal,
-  Plus,
-  Search,
-  Sparkles,
-} from "lucide-react";
+import { Check } from "lucide-react";
 import type { ProjectId } from "../data/projects";
 
 export default function ProjectArtwork({ id }: { id: ProjectId }) {
-  if (id === "splitsmart")
+  if (id === "splitsmart" || id === "sports-analytics-agent") {
+    const name = id === "splitsmart" ? "SplitSmart" : "Sports Analytics Agent";
     return (
-      <div className="project-art art-splitsmart" aria-hidden="true">
-        <div className="mini-board">
-          <div className="mini-app-header">
-            <span>
-              <span className="task-symbol">s</span> splitsmart
-              <span className="mini-slash">/</span>
-              <span className="mini-muted">Group</span>
-            </span>
-            <MoreHorizontal size={14} />
-          </div>
-          <div className="mini-board-title">
-            Expenses at a glance.
-            <span>
-              Group view <span>⌄</span>
-            </span>
-          </div>
-          <div className="mini-columns">
-            {["Owed", "Settling", "Settled"].map((title, i) => (
-              <div key={title}>
-                <div className="mini-column-heading">
-                  <span className={`board-dot board-dot-${i}`} />
-                  {title}
-                  <span>{i === 0 ? "2" : "1"}</span>
-                  <Plus size={10} />
-                </div>
-                {(i === 0
-                  ? ["Dinner · $84", "Utilities · $120"]
-                  : i === 1
-                    ? ["Trip · $245"]
-                    : ["Groceries · $62"]
-                ).map((task, j) => (
-                  <div className="mini-task" key={task}>
-                    <span className={`mini-tag tag-${i}`}>
-                      {i === 0
-                        ? "Expense"
-                        : i === 1
-                          ? "Balance"
-                          : "Settled"}
-                    </span>
-                    <p>{task}</p>
-                    <div>
-                      <span className="mini-lines">≡</span>
-                      <span className={`mini-avatar avatar-${j}`}>d</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
+      <div className="project-art project-site-preview">
+        <div className="project-preview-bar" aria-hidden="true">
+          <span className="project-preview-dots">● ● ●</span>
+          <span>{name}</span>
+          <span>Site preview</span>
         </div>
-        <span className="art-sticker">
-          shared spending, clearly <span>↗</span>
-        </span>
+        <img src={`/previews/${id}.jpg`} alt={`${name} deployed website screenshot`} width={1440} height={1000} loading="lazy" decoding="async" />
       </div>
     );
-  if (id === "sports-analytics-agent")
-    return (
-      <div className="project-art art-sports-agent" aria-hidden="true">
-        <div className="mini-document">
-          <div>
-            <FileText size={16} />
-            <span>mlb-agent.py</span>
-            <MoreHorizontal size={13} />
-          </div>
-          <h4>
-            Baseball questions.
-            <br />
-            Connected data.
-          </h4>
-          <i />
-          <i />
-          <i className="short-line" />
-          <div className="highlighted-lines">
-            <i />
-            <i />
-          </div>
-          <i />
-          <i className="short-line" />
-        </div>
-        <div className="mini-answer">
-          <span className="answer-mark">
-            <Sparkles size={14} />
-          </span>
-          <p>
-            Gemini meets
-            <br />
-            <strong>MLB data in BigQuery.</strong>
-          </p>
-          <span className="source-pill">
-            <FileText size={10} /> BQML prediction <ArrowUpRight size={10} />
-          </span>
-        </div>
-        <div className="mini-search">
-          <Search size={13} />
-          <span>Ask about the matchup…</span>
-          <span>↵</span>
-        </div>
-      </div>
-    );
+  }
   return (
     <div className="project-art art-fabflix" aria-hidden="true">
       <div className="sentiment-orbit" />
