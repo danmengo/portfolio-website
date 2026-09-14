@@ -4226,3 +4226,11 @@ h2 {
 .project-preview-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex: 0 0 36px; padding: 0 12px; background: #f0f1ed; color: #454b43; border-bottom: 1px solid #dcddd2; font-size: 12px; }
 .project-preview-dots { color: #858c7d; font-size: 9px; white-space: nowrap; }
 .project-site-preview img { display: block; width: 100%; height: calc(100% - 36px); min-height: 0; object-fit: contain; object-position: top; background: #fff; }
+
+/* Keep the notice marker centered on the first text line when the copy wraps. */
+.resume-evidence-notice { display: grid; grid-template-columns: 5px auto minmax(0, 1fr); align-items: start; }
+.resume-evidence-notice > .mini-orange-dot { margin-top: calc(0.5lh - 2.5px); }
+@media (max-width: 680px) {
+  .resume-evidence-notice { grid-template-columns: 5px minmax(0, 1fr); }
+  .resume-evidence-notice > span:last-child { grid-column: 2; }
+}
