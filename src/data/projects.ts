@@ -49,7 +49,7 @@ export const projects: Project[] = [
   {
     id: "fabflix",
     name: "Fabflix",
-    number: "02",
+    number: "03",
     date: "APR 2025",
     category: "Full stack",
     tagline: "A Java web application built to scale.",
@@ -74,7 +74,7 @@ export const projects: Project[] = [
     id: "sports-analytics-agent",
     name: "Sports Analytics Agent",
     liveUrl: "https://mlb-scout-ui-t5crpvofra-uc.a.run.app/",
-    number: "03",
+    number: "02",
     date: "OCT 2025",
     category: "AI / ML",
     tagline: "A data agent built around baseball questions.",
@@ -99,3 +99,6 @@ export const projects: Project[] = [
 
 export const findProject = (id: string | undefined) =>
   projects.find((project) => project.id === id);
+
+// Display order is separate from the source array used by the RAG index.
+export const projectsNewestFirst = [...projects].sort((a, b) => a.number.localeCompare(b.number));

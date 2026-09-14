@@ -13,7 +13,7 @@ import {
   Sparkles,
   Terminal,
 } from "lucide-react";
-import { projects } from "../data/projects";
+import { projectsNewestFirst as projects } from "../data/projects";
 import ProjectArtwork from "./ProjectArtwork";
 import StackDiagram from "./StackDiagram";
 import { ProjectTemplateCard } from "./ProjectTemplate";

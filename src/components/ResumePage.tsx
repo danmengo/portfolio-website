@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowUpRight, Download, Printer } from 'lucide-react';
-import { projects } from '../data/projects';
+import { projectsNewestFirst as projects } from '../data/projects';
 import './resume.css';
 
 const skills = [
