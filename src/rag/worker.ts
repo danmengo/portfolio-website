@@ -49,7 +49,14 @@ async function readQuestion(request: Request) {
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const path = new URL(request.url).pathname;
+    const url = new URL(request.url);
+    if (url.hostname === "danmengo-portfolio.danmengo-portfolio.workers.dev") {
+      url.hostname = "danmengo.com";
+      url.protocol = "https:";
+      url.port = "";
+      return Response.redirect(url.toString(), 308);
+    }
+    const path = url.pathname;
     if (!path.startsWith("/api/")) return env.ASSETS ? env.ASSETS.fetch(request) : error("Not found.", 404);
     if (path !== "/api/chat") return error("Not found.", 404);
     if (request.method !== "POST") return new Response(null, { status: 405, headers: { ...headers, Allow: "POST" } });

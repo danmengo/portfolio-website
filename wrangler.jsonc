@@ -3,6 +3,8 @@
   "name": "danmengo-portfolio",
   "main": "src/rag/worker.ts",
   "preview_urls": false,
+  "workers_dev": true,
+  "routes": [{ "pattern": "danmengo.com", "custom_domain": true }],
   "compatibility_date": "2026-09-03",
   "vars": { "CHAT_ENABLED": "true", "DAILY_AI_LIMIT": "100", "RETRIEVAL_MODE": "hybrid" },
   "ai": { "binding": "AI" },
@@ -13,7 +15,7 @@
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"],
+    "run_worker_first": true,
     "not_found_handling": "single-page-application"
   }
 }

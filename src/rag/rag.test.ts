@@ -144,3 +144,26 @@ describe("daily reservation policy", () => {
     expect(await reserve(memoryStorage(), limit)).toBe(false);
   });
 });
+
+describe("canonical domain redirect", () => {
+  it.each(["/", "/chat?project=splitsmart", "/projects/fabflix", "/assets/example.js"])("preserves %s on the old domain", async (path) => {
+    const response = await worker.fetch(new Request(`https://danmengo-portfolio.danmengo-portfolio.workers.dev${path}`), {});
+    expect(response.status).toBe(308);
+    expect(response.headers.get("Location")).toBe(`https://danmengo.com${path}`);
+  });
+  it("redirects POST before consuming the AI budget", async () => {
+    const { env, run, limit, budgetFetch } = setup();
+    const response = await worker.fetch(new Request("https://danmengo-portfolio.danmengo-portfolio.workers.dev/api/chat", { method: "POST", body: "{}" }), env);
+    expect(response.status).toBe(308);
+    expect(run).not.toHaveBeenCalled();
+    expect(limit).not.toHaveBeenCalled();
+    expect(budgetFetch).not.toHaveBeenCalled();
+  });
+  it.each(["danmengo.com", "localhost", "danmengo-portfolio-rag.danmengo-portfolio.workers.dev"])("serves %s without redirecting", async (host) => {
+    const fetch = vi.fn().mockResolvedValue(new Response("Portfolio"));
+    const response = await worker.fetch(new Request(`https://${host}/chat`), { ASSETS: { fetch } });
+    expect(response.status).toBe(200);
+    expect(fetch).toHaveBeenCalledOnce();
+    expect(response.headers.has("Location")).toBe(false);
+  });
+});
