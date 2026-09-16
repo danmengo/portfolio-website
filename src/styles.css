@@ -4234,3 +4234,16 @@ h2 {
   .resume-evidence-notice { grid-template-columns: 5px minmax(0, 1fr); }
   .resume-evidence-notice > span:last-child { grid-column: 2; }
 }
+
+.project-repo-link { margin: 0 0 18px; }
+.project-live-link + .project-repo-link { margin-left: 20px; }
+
+.case-tabs, .case-notes-content { min-width: 0; }
+.case-notes-content p { overflow-wrap: anywhere; }
+@media (max-width: 680px) {
+  .case-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .case-tabs > button { min-width: 0; overflow-wrap: anywhere; }
+  .architecture-nodes { flex-wrap: wrap; }
+  .architecture-nodes > div { min-width: 0; }
+  .architecture-nodes button { min-width: 0; overflow-wrap: anywhere; }
+}

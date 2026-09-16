@@ -47,3 +47,9 @@ it("ends a stuck operation at its deadline", async () => {
   await vi.advanceTimersByTimeAsync(100);
   await check;
 });
+
+it("supports Survey Sage project context and its approved source", () => {
+  expect(contextualize("Tell me about Survey Sage", "fabflix").project).toBe("survey-sage");
+  expect(getLiveWelcome("survey-sage").paragraphs.join(" ")).toContain("Survey Sage");
+  expect(parseReply({ paragraphs: ["Research prototype"], sources: [{ href: "/projects/survey-sage", label: "Survey Sage", detail: "Capstone" }], project: "survey-sage" }).project).toBe("survey-sage");
+});

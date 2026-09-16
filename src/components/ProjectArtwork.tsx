@@ -2,16 +2,16 @@ import { Check } from "lucide-react";
 import type { ProjectId } from "../data/projects";
 
 export default function ProjectArtwork({ id }: { id: ProjectId }) {
-  if (id === "splitsmart" || id === "sports-analytics-agent") {
-    const name = id === "splitsmart" ? "SplitSmart" : "Sports Analytics Agent";
+  if (id === "splitsmart" || id === "sports-analytics-agent" || id === "survey-sage") {
+    const name = id === "splitsmart" ? "SplitSmart" : id === "survey-sage" ? "Survey Sage" : "Sports Analytics Agent";
     return (
       <div className="project-art project-site-preview">
         <div className="project-preview-bar" aria-hidden="true">
           <span className="project-preview-dots">● ● ●</span>
           <span>{name}</span>
-          <span>Site preview</span>
+          <span>{id === "survey-sage" ? "Capstone preview" : "Site preview"}</span>
         </div>
-        <img src={`/previews/${id}.jpg`} alt={`${name} deployed website screenshot`} width={1440} height={1000} loading="lazy" decoding="async" />
+        <img src={`/previews/${id}.jpg`} alt={`${name} ${id === "survey-sage" ? "chat interface from the capstone report" : "deployed website screenshot"}`} width={id === "survey-sage" ? 2048 : 1440} height={id === "survey-sage" ? 1115 : 1000} loading="lazy" decoding="async" />
       </div>
     );
   }

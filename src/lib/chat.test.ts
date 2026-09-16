@@ -140,8 +140,9 @@ describe("portfolio conversation preview", () => {
     expect(answer).toMatch(/does not provide additional quantified results/);
   });
 
-  it("offers all three verified project pages", () => {
+  it("offers all four documented project pages", () => {
     expect(getChatReply("What projects have you built?").sources.map((source) => source.href)).toEqual([
+      "/projects/survey-sage",
       "/projects/splitsmart",
       "/projects/sports-analytics-agent",
       "/projects/fabflix",

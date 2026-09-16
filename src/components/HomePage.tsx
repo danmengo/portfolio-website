@@ -153,6 +153,11 @@ export default function HomePage() {
                   Live demo <ArrowUpRight size={16} aria-hidden="true" />
                 </a>
               )}
+              {project.githubUrl && (
+                <a className="text-link project-repo-link" href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.name} on GitHub (opens in a new tab)`}>
+                  GitHub <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              )}
               <div className="project-tags">
                 {project.tags.map((tag) => (
                   <span key={tag}>{tag}</span>

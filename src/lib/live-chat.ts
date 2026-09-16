@@ -8,7 +8,7 @@ export function getLiveWelcome(project?: ChatProject): ChatReply {
   ] };
 }
 
-const allowedSources = new Set(["/chat", "/resume", "/projects/splitsmart", "/projects/fabflix", "/projects/sports-analytics-agent"]);
+const allowedSources = new Set(["/chat", "/resume", "/projects/splitsmart", "/projects/fabflix", "/projects/sports-analytics-agent", "/projects/survey-sage"]);
 export function parseReply(value: unknown): ChatReply {
   if (!value || typeof value !== "object") throw new Error("The server returned an invalid answer.");
   const body = value as Record<string, unknown>;
@@ -19,7 +19,7 @@ export function parseReply(value: unknown): ChatReply {
     if (typeof s.href !== "string" || !allowedSources.has(s.href) || typeof s.label !== "string" || typeof s.detail !== "string") throw new Error("Invalid source.");
     return { href: s.href, label: s.label, detail: s.detail };
   });
-  const project = ["splitsmart", "fabflix", "sports-analytics-agent"].includes(String(body.project)) ? body.project as ChatProject : undefined;
+  const project = ["splitsmart", "fabflix", "sports-analytics-agent", "survey-sage"].includes(String(body.project)) ? body.project as ChatProject : undefined;
   return { paragraphs: body.paragraphs as string[], sources, suggestions: project ? ["What technologies did you use?", "What results are documented?"] : ["Tell me about SplitSmart", "Tell me about Fabflix"], project };
 }
 

@@ -1,4 +1,4 @@
-export type ChatProject = "splitsmart" | "sports-analytics-agent" | "fabflix";
+export type ChatProject = "splitsmart" | "sports-analytics-agent" | "fabflix" | "survey-sage";
 
 export interface ChatSource {
   label: string;
@@ -14,12 +14,14 @@ export interface ChatReply {
 }
 
 const projectNames: Record<ChatProject, string> = {
+  "survey-sage": "Survey Sage",
   splitsmart: "SplitSmart",
   "sports-analytics-agent": "Sports Analytics Agent",
   fabflix: "Fabflix",
 };
 
 const projectSources: Record<ChatProject, ChatSource> = {
+  "survey-sage": { label: "Explore Survey Sage", href: "/projects/survey-sage", detail: "UCI capstone · June 2026" },
   splitsmart: { label: "Explore SplitSmart", href: "/projects/splitsmart", detail: "Full-stack project · February 2026" },
   "sports-analytics-agent": { label: "Explore Sports Analytics Agent", href: "/projects/sports-analytics-agent", detail: "AI/ML project · October 2025" },
   fabflix: { label: "Explore Fabflix", href: "/projects/fabflix", detail: "Backend project · April 2025" },
@@ -41,6 +43,7 @@ export function resolveProject(value?: string): ChatProject | undefined {
   const normalized = value?.toLowerCase().replace(/[\s-]/g, "");
   if (normalized === "splitsmart") return "splitsmart";
   if (normalized === "sportsanalyticsagent" || normalized === "sportsanalytics" || normalized === "sportsagent") return "sports-analytics-agent";
+  if (normalized === "surveysage") return "survey-sage";
   if (normalized === "fabflix") return "fabflix";
   return undefined;
 }
@@ -85,6 +88,7 @@ function projectReply(project: ChatProject, question: string): ChatReply {
   if (asksForUnsupportedDetail) return unavailableProjectDetail(project);
 
   const paragraphs: Record<ChatProject, string[]> = {
+    "survey-sage": ["Survey Sage is a June 2026 UCI team capstone exploring local LLM survey scoring. Daniel generated and scored synthetic conversations and evaluated models in Jupyter. The team benchmark used 60 synthetic conversations across six instruments; the prototype was not clinically validated."],
     splitsmart: asksAboutPerformance
       ? ["The résumé does not list a numeric performance or adoption metric for SplitSmart. Its documented result is a working group-expense and splitting experience with Recharts analytics."]
       : asksAboutTechnology
@@ -134,7 +138,7 @@ function projectReply(project: ChatProject, question: string): ChatReply {
 /** Local, deterministic preview only. It does not call a model or store messages. */
 export function getChatReply(input: string, previousProject?: ChatProject): ChatReply {
   const question = input.trim().toLowerCase().slice(0, 500);
-  const explicitProject: ChatProject | undefined = /split\s?-?smart/.test(question)
+  const explicitProject: ChatProject | undefined = /survey[\s-]*sage/.test(question) ? "survey-sage" : /split\s?-?smart/.test(question)
     ? "splitsmart"
     : /sports[-\s]+analytics(?:[-\s]+agent)?|sports[-\s]+agent/.test(question)
       ? "sports-analytics-agent"

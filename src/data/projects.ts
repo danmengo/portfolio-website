@@ -1,10 +1,11 @@
-export type ProjectId = "splitsmart" | "sports-analytics-agent" | "fabflix";
+export type ProjectId = "splitsmart" | "sports-analytics-agent" | "fabflix" | "survey-sage";
 export type ProjectCategory = "Full stack" | "AI / ML";
 
 export interface Project {
   id: ProjectId;
   name: string;
   liveUrl?: string;
+  githubUrl?: string;
   number: string;
   date: string;
   category: ProjectCategory;
@@ -24,8 +25,9 @@ export const projects: Project[] = [
   {
     id: "splitsmart",
     name: "SplitSmart",
+    githubUrl: "https://github.com/danmengo/splitsmart",
     liveUrl: "https://splitsmart-vgor.vercel.app",
-    number: "01",
+    number: "02",
     date: "FEB 2026",
     category: "Full stack",
     tagline: "Split expenses. See where the money goes.",
@@ -49,7 +51,7 @@ export const projects: Project[] = [
   {
     id: "fabflix",
     name: "Fabflix",
-    number: "03",
+    number: "04",
     date: "APR 2025",
     category: "Full stack",
     tagline: "A Java web application built to scale.",
@@ -73,8 +75,9 @@ export const projects: Project[] = [
   {
     id: "sports-analytics-agent",
     name: "Sports Analytics Agent",
+    githubUrl: "https://github.com/danmengo/sports-analytics-agent",
     liveUrl: "https://mlb-scout-ui-t5crpvofra-uc.a.run.app/",
-    number: "02",
+    number: "03",
     date: "OCT 2025",
     category: "AI / ML",
     tagline: "A data agent built around baseball questions.",
@@ -94,6 +97,27 @@ export const projects: Project[] = [
     tradeoff:
       "Developed an ML-powered Win Probability model using BQML within a BigQuery data lake, enabling real-time game outcome predictions and detailed performance analysis.",
     next: "The project demonstrates an end-to-end path from an agent request to MLB data and a BQML prediction.",
+  },
+  {
+    id: "survey-sage",
+    name: "Survey Sage",
+    githubUrl: "https://github.com/mindful-metrics/survey-sage",
+    number: "01",
+    date: "JUN 2026",
+    category: "AI / ML",
+    tagline: "From conversation to structured survey scores.",
+    description: "A UCI capstone research prototype combining a conversational survey interface with local LLM scoring and model evaluation.",
+    tags: ["Python", "Jupyter", "Ollama"],
+    technology: "Python, Jupyter, Ollama, TypeScript, React, Bun, Elysia",
+    bullets: [
+      "Contributed to a UCI capstone team exploring conversational survey scoring; generated and scored synthetic conversations and evaluated models using Jupyter notebooks.",
+      "The team benchmarked 10+ LLMs on 60 synthetic conversations across six survey instruments using mean squared error and statistical comparisons. This was a local research prototype, not a clinically validated system.",
+    ],
+    color: "sage",
+    problem: "Survey Sage explored a conversational alternative to rating-scale forms for stress and mental-health research. The goal was to extract structured survey scores from transcripts; reduced participant fatigue was a goal, not a measured outcome.",
+    approach: "The team built a React and TypeScript chat application with Bun and Elysia, local inference through Ollama, and a Python/Jupyter evaluation pipeline. Daniel generated and scored synthetic conversation data and evaluated models in notebooks. The application and evaluation pipeline were team deliverables, not solely Daniel's work.",
+    tradeoff: "The final report describes 60 synthetic conversations across six instruments, two independent scorers, and benchmarks of 10+ LLMs using mean squared error. It reports better-than-random scoring (Wilcoxon p < 0.001) and no statistically significant difference among compared models or fine-tuned variants (Friedman p = 0.162). The small synthetic dataset does not establish clinical validity or model equivalence.",
+    next: "The June 2026 capstone ran locally. Researcher administration, PostgreSQL persistence, and multi-study configuration were deferred. Future work includes expert annotations, a larger dataset, and evaluation with real participants under research oversight.",
   },
 ];
 

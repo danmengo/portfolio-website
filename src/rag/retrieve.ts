@@ -18,7 +18,7 @@ const averageLength = indexed.reduce((sum, doc) => sum + doc.terms.length, 0) / 
 export function retrieve(question: string) {
   const query = [...new Set(tokens(question))];
   const normalized = question.toLowerCase().replace(/[^a-z0-9]/g, "");
-  const namedProjects = ["splitsmart", "sports-analytics-agent", "fabflix"].filter((id) =>
+  const namedProjects = ["splitsmart", "sports-analytics-agent", "fabflix", "survey-sage"].filter((id) =>
     normalized.includes(id.replace(/-/g, "")),
   );
   // Explicit project questions should not retrieve unrelated projects merely

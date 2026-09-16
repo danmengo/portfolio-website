@@ -25,6 +25,7 @@ function NavigationEffects() {
       "/privacy": "privacy policy",
       "/projects/splitsmart": "SplitSmart · full-stack project",
       "/projects/sports-analytics-agent": "Sports Analytics Agent · AI/ML project",
+      "/projects/survey-sage": "Survey Sage · AI research capstone",
       "/projects/fabflix": "Fabflix · full-stack project",
       "/projects/new-project": "New project · coming soon",
     };

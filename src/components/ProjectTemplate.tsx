@@ -15,7 +15,7 @@ export function ProjectTemplateCard() {
       </Link>
       <div className="project-meta">
         <span className="eyebrow">Coming soon</span>
-        <span className="sample-label">04</span>
+        <span className="sample-label">05</span>
       </div>
       <Link className="project-title" to="/projects/new-project">
         <h3>{projectTemplate.name}</h3><span>↗</span>
@@ -40,7 +40,7 @@ export default function ProjectTemplatePage() {
       <Link className="back-link" to="/#work"><ArrowLeft size={15} /> Back to the projects</Link>
       <div className="project-detail-header">
         <div>
-          <span className="eyebrow">Project 04 / Coming soon</span>
+          <span className="eyebrow">Project 05 / Coming soon</span>
           <h1>{projectTemplate.name}<span>.</span></h1>
           <p>A space for the next idea.</p>
         </div>

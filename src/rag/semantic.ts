@@ -53,7 +53,7 @@ export async function retrieveHybrid(question: string, ai: AiBinding, index: Vec
   const result = await index.query(vector, { topK: 20, namespace: revision, returnMetadata: "none" });
   if (!result.matches.length) throw new Error("Current corpus is not indexed");
   const normalized = question.toLowerCase().replace(/[^a-z0-9]/g, "");
-  const named = ["splitsmart", "fabflix", "sports-analytics-agent"].filter((id) => normalized.includes(id.replace(/-/g, "")));
+  const named = ["splitsmart", "fabflix", "sports-analytics-agent", "survey-sage"].filter((id) => normalized.includes(id.replace(/-/g, "")));
   const allowed = knowledge.filter((p) => named.length !== 1 || p.href === `/projects/${named[0]}`);
   // Ignore remote text/URLs and unknown/stale IDs; resolve trusted local content.
   const byId = new Map(allowed.map((p) => [`${revision}:${p.id}`, p]));

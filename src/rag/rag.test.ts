@@ -167,3 +167,10 @@ describe("canonical domain redirect", () => {
     expect(response.headers.has("Location")).toBe(false);
   });
 });
+
+it("retrieves Survey Sage contribution evidence without unrelated projects", () => {
+  const passages = retrieve("What did Daniel contribute to Survey Sage?");
+  expect(passages.length).toBeGreaterThan(0);
+  expect(passages.every(p => p.href === "/projects/survey-sage")).toBe(true);
+  expect(passages.map(p => p.text).join(" ")).toMatch(/generated and scored synthetic/);
+});
