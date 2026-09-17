@@ -1,3 +1,4 @@
+import { socialReply, noEvidenceReply } from "./topics.ts";
 import type { AiBinding } from "./semantic.ts";
 import type { Passage } from "./knowledge.ts";
 import { PORTFOLIO_VOICE } from "./personality.ts";
@@ -5,7 +6,9 @@ import { ANSWER_MODEL } from "./models.ts";
 
 /** Shared by the protected Worker and the manually invoked learning CLI. */
 export async function generateReply(question: string, passages: Passage[], ai: AiBinding) {
-  if (!passages.length) return { paragraphs: ["I couldn't find relevant information in Daniel's public portfolio. Try a specific project or resume topic."], sources: [], suggestions: [], mode: "no-evidence" };
+  const social = socialReply(question);
+  if (social) return social;
+  if (!passages.length) return noEvidenceReply();
   const output = await ai.run(ANSWER_MODEL, {
     max_tokens: 350,
     temperature: 0.2,

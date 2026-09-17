@@ -32,7 +32,7 @@ describe("retrieval evaluation baseline", () => {
   });
   it("does not retrieve unrelated topics or stopwords", () => {
     expect(retrieve("How do I bake sourdough?")).toEqual([]);
-    expect(retrieve("Tell me about you")).toEqual([]);
+    expect(retrieve("the and or")).toEqual([]);
   });
   it("keeps a named project question within that project's evidence", () => {
     const passages = retrieve("How did Fabflix improve XML performance?");

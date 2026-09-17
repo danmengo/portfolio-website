@@ -1,3 +1,4 @@
+import { topicPassageIds } from "./topics.ts";
 import { knowledge } from "./knowledge.ts";
 import { retrieve } from "./retrieve.ts";
 
@@ -60,6 +61,7 @@ export async function retrieveHybrid(question: string, ai: AiBinding, index: Vec
   const semantic = result.matches.filter((match) => Number.isFinite(match.score) && match.score >= MIN_SIMILARITY && byId.has(match.id)).map((match) => ({ ...byId.get(match.id)!, similarity: match.score }));
   const lexical = retrieve(question);
   const scores = new Map<string, number>();
+  topicPassageIds(question).forEach((id, rank) => scores.set(id, 1 - rank * 0.1));
   for (const list of [lexical, semantic]) list.forEach((p, rank) => scores.set(p.id, (scores.get(p.id) ?? 0) + 1 / (60 + rank + 1)));
   return allowed.filter((p) => scores.has(p.id)).map((p) => ({ ...p, score: scores.get(p.id)!, similarity: semantic.find((s) => s.id === p.id)?.similarity }))
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, 4);

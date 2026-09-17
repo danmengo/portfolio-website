@@ -1,3 +1,4 @@
+import { topicPassageIds } from "./topics.ts";
 import { knowledge } from "./knowledge.ts";
 
 const stopWords = new Set("a an the is are was were what which how why did does do has have had he his daniel meng you your me about tell use used with and or to of in for it that this".split(" "));
@@ -16,6 +17,7 @@ const averageLength = indexed.reduce((sum, doc) => sum + doc.terms.length, 0) / 
 
 /** BM25 keyword baseline. Scores rank matches; they are not confidence probabilities. */
 export function retrieve(question: string) {
+  const preferred = topicPassageIds(question);
   const query = [...new Set(tokens(question))];
   const normalized = question.toLowerCase().replace(/[^a-z0-9]/g, "");
   const namedProjects = ["splitsmart", "sports-analytics-agent", "fabflix", "survey-sage"].filter((id) =>
@@ -27,7 +29,8 @@ export function retrieve(question: string) {
     ? indexed.filter(({ passage }) => passage.href === `/projects/${namedProjects[0]}`)
     : indexed;
   return candidates.map(({ passage, terms }) => {
-    let score = 0;
+    const priority = preferred.indexOf(passage.id);
+    let score = priority < 0 ? 0 : 100 - priority;
     const matchedTerms: string[] = [];
     for (const term of query) {
       const frequency = terms.filter((candidate) => candidate === term).length;

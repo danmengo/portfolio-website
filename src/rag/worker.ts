@@ -1,3 +1,4 @@
+import { socialReply, noEvidenceReply } from "./topics.ts";
 import { generateReply } from "./answer.ts";
 import { contextualize } from "./context.ts";
 import { DeadlineError, withTimeout } from "./timeout.ts";
@@ -73,9 +74,11 @@ export default {
       let input: { question: string; project?: ProjectId };
       try { input = await withTimeout(readQuestion(request), 5000); }
       catch { return error("Send a JSON question of 1–500 characters, with a body under 4 KB.", 400); }
+      const social = socialReply(input.question);
+      if (social) return json({ ...social, project: input.project });
       const { query: question, project } = contextualize(input.question, input.project);
       let passages = retrieve(question);
-      const noEvidence = () => json({ paragraphs: ["I couldn't find relevant information in Daniel's public portfolio. Try a specific project or resume topic."], sources: [], suggestions: [], mode: "no-evidence" });
+      const noEvidence = () => json({ ...noEvidenceReply(), project });
       if (!hybrid && !passages.length) return noEvidence();
 
       const budget = env.CHAT_BUDGET.get(env.CHAT_BUDGET.idFromName("portfolio-global-budget"));
