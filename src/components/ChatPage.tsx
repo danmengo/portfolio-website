@@ -11,7 +11,6 @@ import {
   ArrowUpRight,
   Code2,
   Github,
-  MessageCircle,
   PanelLeftClose,
   PanelLeftOpen,
   RotateCcw,
@@ -181,7 +180,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
                 {profileOpen ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
               </button>
               <span className="chat-window-icon">
-                <MessageCircle size={18} />
+                <Sparkles size={18} aria-hidden="true" />
               </span>
               <div>
                 <h1>mengoAI</h1>
@@ -223,7 +222,7 @@ function Conversation({ firstProject }: { firstProject?: ChatProject }) {
               >
                 {message.role === "assistant" && (
                   <div className="chat-message-avatar" aria-hidden="true">
-                    ✳
+                    <Sparkles size={18} />
                   </div>
                 )}
                 <div className="chat-message-content">
