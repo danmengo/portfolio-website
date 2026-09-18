@@ -1,3 +1,4 @@
+import { arithmeticReply } from "./arithmetic.ts";
 import { projects } from "../data/projects.ts";
 
 /** Curated entry points for broad questions that share few words with a resume. */
@@ -14,8 +15,10 @@ export function topicPassageIds(question: string): string[] {
   return [];
 }
 
-/** Only whole-message social intents; mixed questions continue through retrieval. */
+/** Whole-message arithmetic and social intents; mixed questions continue through retrieval. */
 export function socialReply(question: string) {
+  const arithmetic = arithmeticReply(question);
+  if (arithmetic) return arithmetic;
   const q = question.trim().toLowerCase().replace(/[!?.]+$/g, "").trim();
   let text: string | undefined;
   if (/^(hi|hey|hello|hiya|yo)( mengoai)?$/.test(q)) text = "Hey hey 👋 Pick a rabbit hole: projects, my background, or life outside coding.";
