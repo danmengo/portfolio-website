@@ -18,17 +18,17 @@ export function topicPassageIds(question: string): string[] {
 export function socialReply(question: string) {
   const q = question.trim().toLowerCase().replace(/[!?.]+$/g, "").trim();
   let text: string | undefined;
-  if (/^(hi|hey|hello|hiya|yo)( mengoai)?$/.test(q)) text = "Hey! 👋 What would you like to know about me—my projects, background, or what I do outside coding?";
-  else if (/^(thanks|thank you|thank you so much|thx|ty)$/.test(q)) text = "Of course! 🙂 Happy to help.";
-  else if (/^(how are you|how's it going|what's up|whats up)$/.test(q)) text = "Hey! Ready to chat 🙂 Want to talk projects or get to know me a little?";
-  else if (/^(are you smart|are you intelligent|how smart are you)$/.test(q)) text = "Hopefully enough to answer your next question 😄 Try me on a project or something about my background.";
+  if (/^(hi|hey|hello|hiya|yo)( mengoai)?$/.test(q)) text = "Hey hey 👋 Pick a rabbit hole: projects, my background, or life outside coding.";
+  else if (/^(thanks|thank you|thank you so much|thx|ty)$/.test(q)) text = "Anytime! 😄";
+  else if (/^(how are you|how's it going|what's up|whats up)$/.test(q)) text = "Hey! The chat is open and the pixels are behaving 😄 What’s on your mind?";
+  else if (/^(are you smart|are you intelligent|how smart are you)$/.test(q)) text = "Let’s find out 😄 Ask me something about my projects. Bonus points if it’s more challenging than 2 + 2.";
   if (!text) return undefined;
   return { paragraphs: [text], sources: [], suggestions: [], mode: "conversation" };
 }
 
 export function noEvidenceReply() {
   return {
-    paragraphs: ["I don't have that detail yet. Could you rephrase it or tell me which project you mean? You can also ask about my education, skills, teaching, or activities outside coding."],
+    paragraphs: ["You’ve found a gap in my notes 😅 Give me a little more context, or try my projects, skills, or life outside coding."],
     sources: [], suggestions: [], mode: "no-evidence",
   };
 }
