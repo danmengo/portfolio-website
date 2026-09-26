@@ -1,4 +1,4 @@
-export type ProjectId = "splitsmart" | "sports-analytics-agent" | "fabflix" | "survey-sage";
+export type ProjectId = "splitsmart" | "sports-analytics-agent" | "fabflix" | "survey-sage" | "my-money";
 export type ProjectCategory = "Full stack" | "AI / ML";
 
 export interface Project {
@@ -27,7 +27,7 @@ export const projects: Project[] = [
     name: "SplitSmart",
     githubUrl: "https://github.com/danmengo/splitsmart",
     liveUrl: "https://splitsmart-vgor.vercel.app",
-    number: "02",
+    number: "03",
     date: "FEB 2026",
     category: "Full stack",
     tagline: "Split expenses. See where the money goes.",
@@ -51,7 +51,7 @@ export const projects: Project[] = [
   {
     id: "fabflix",
     name: "Fabflix",
-    number: "04",
+    number: "05",
     date: "APR 2025",
     category: "Full stack",
     tagline: "A Java web application built to scale.",
@@ -77,7 +77,7 @@ export const projects: Project[] = [
     name: "Sports Analytics Agent",
     githubUrl: "https://github.com/danmengo/sports-analytics-agent",
     liveUrl: "https://mlb-scout-ui-t5crpvofra-uc.a.run.app/",
-    number: "03",
+    number: "04",
     date: "OCT 2025",
     category: "AI / ML",
     tagline: "A data agent built around baseball questions.",
@@ -102,7 +102,7 @@ export const projects: Project[] = [
     id: "survey-sage",
     name: "Survey Sage",
     githubUrl: "https://github.com/mindful-metrics/survey-sage",
-    number: "01",
+    number: "02",
     date: "JUN 2026",
     category: "AI / ML",
     tagline: "From conversation to structured survey scores.",
@@ -118,6 +118,29 @@ export const projects: Project[] = [
     approach: "The team built a React and TypeScript chat application with Bun and Elysia, local inference through Ollama, and a Python/Jupyter evaluation pipeline. Daniel generated and scored synthetic conversation data and evaluated models in notebooks. The application and evaluation pipeline were team deliverables, not solely Daniel's work.",
     tradeoff: "The final report describes 60 synthetic conversations across six instruments, two independent scorers, and benchmarks of 10+ LLMs using mean squared error. It reports better-than-random scoring (Wilcoxon p < 0.001) and no statistically significant difference among compared models or fine-tuned variants (Friedman p = 0.162). The small synthetic dataset does not establish clinical validity or model equivalence.",
     next: "The June 2026 capstone ran locally. Researcher administration, PostgreSQL persistence, and multi-study configuration were deferred. Future work includes expert annotations, a larger dataset, and evaluation with real participants under research oversight.",
+  },
+  {
+    id: "my-money",
+    name: "My Money",
+    githubUrl: "https://github.com/danmengo/my-money-budget",
+    liveUrl: "https://budget.danmengo.com",
+    number: "01",
+    date: "SEP 2026",
+    category: "Full stack",
+    tagline: "A clearer picture of your money.",
+    description: "A personal finance dashboard for tracking income, expenses, monthly budgets, and savings and investing goals.",
+    tags: ["Next.js", "Supabase", "Cloudflare"],
+    technology: "Next.js, React, TypeScript, Supabase Auth, PostgreSQL, Tailwind CSS, shadcn/ui, Recharts, Cloudflare Workers",
+    bullets: [
+      "Built a personal budgeting app with income and expense tracking, editable categories, monthly budgets, savings and investing goals, and CSV transaction export.",
+      "Integrated Google OAuth and passwordless email sign-in with Supabase Auth, with PostgreSQL Row Level Security restricting financial records to their owner.",
+      "Created responsive spending analytics and monthly breakdowns with Recharts, deployed on Cloudflare Workers.",
+    ],
+    color: "sage",
+    problem: "My Money brings day-to-day transactions, category budgets, and longer-term financial goals into one personal dashboard.",
+    approach: "Built with Next.js, React, and TypeScript, using Tailwind CSS and shadcn/ui for the interface and Recharts for analytics. Supabase provides authentication and PostgreSQL storage; Cloudflare Workers hosts the app.",
+    tradeoff: "The deployed app supports transaction tracking, monthly budget progress, savings and investing goals, spending breakdowns, and CSV export. The public repository does not report adoption or performance measurements.",
+    next: "The project connects a responsive finance interface to per-user data access. PostgreSQL Row Level Security restricts reads and writes to the authenticated owner, and the browser uses a public Supabase key rather than a service-role key.",
   },
 ];
 

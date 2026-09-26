@@ -44,7 +44,7 @@ async function readQuestion(request: Request) {
   const question = (body as { question?: unknown }).question;
   if (typeof question !== "string" || !question.trim() || question.length > 500) throw new Error("Question must be 1–500 characters.");
   const project = (body as { project?: unknown }).project;
-  if (project !== undefined && (typeof project !== "string" || !["splitsmart", "fabflix", "sports-analytics-agent", "survey-sage"].includes(project))) throw new Error("Invalid project.");
+  if (project !== undefined && (typeof project !== "string" || !["splitsmart", "fabflix", "sports-analytics-agent", "survey-sage", "my-money"].includes(project))) throw new Error("Invalid project.");
   return { question: question.trim(), project: project as ProjectId | undefined };
 }
 

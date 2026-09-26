@@ -20,7 +20,7 @@ export function retrieve(question: string) {
   const preferred = topicPassageIds(question);
   const query = [...new Set(tokens(question))];
   const normalized = question.toLowerCase().replace(/[^a-z0-9]/g, "");
-  const namedProjects = ["splitsmart", "sports-analytics-agent", "fabflix", "survey-sage"].filter((id) =>
+  const namedProjects = ["splitsmart", "sports-analytics-agent", "fabflix", "survey-sage", "my-money"].filter((id) =>
     normalized.includes(id.replace(/-/g, "")),
   );
   // Explicit project questions should not retrieve unrelated projects merely

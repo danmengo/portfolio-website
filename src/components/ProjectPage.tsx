@@ -22,6 +22,11 @@ import ProjectArtwork from "./ProjectArtwork";
 type SystemPart = { title: string; icon: LucideIcon; text: string };
 
 const projectSystems: Record<ProjectId, SystemPart[]> = {
+  "my-money": [
+    { title: "Dashboard", icon: BarChart3, text: "Next.js, React, and TypeScript power transactions, budgets, goals, and Recharts spending analytics." },
+    { title: "Private data", icon: Database, text: "Supabase Auth supports Google and passwordless email sign-in. PostgreSQL Row Level Security restricts financial records to their authenticated owner." },
+    { title: "Delivery", icon: Cloud, text: "Cloudflare Workers serves the responsive app, styled with Tailwind CSS and shadcn/ui." },
+  ],
   "survey-sage": [
     { title: "Conversation", icon: Users, text: "The team application uses React, TypeScript, Bun, and Elysia to collect conversational responses and export transcripts." },
     { title: "Local scoring", icon: Bot, text: "Ollama runs the local models used to extract structured survey scores. The capstone was a research prototype with no public live deployment." },
@@ -312,11 +317,11 @@ export default function ProjectPage() {
       </div>
       <div className="sample-notice resume-evidence-notice">
         <span className="mini-orange-dot" />
-        <strong>{project.id === "survey-sage" ? "Capstone project" : "Résumé project"}</strong>
+        <strong>{project.id === "survey-sage" ? "Capstone project" : project.id === "my-money" ? "Personal project" : "Résumé project"}</strong>
         <span>
           {project.id === "survey-sage"
             ? "Based on the June 2026 capstone final report. Team research prototype; Daniel contributed synthetic data generation, scoring, and model evaluation."
-            : "Project facts and results on this page come from Daniel’s résumé. The hands-on section is an explainer created for this portfolio."}
+            : project.id === "my-money" ? "Project details are based on the public My Money repository and deployed application." : "Project facts and results on this page come from Daniel’s résumé. The hands-on section is an explainer created for this portfolio."}
         </span>
       </div>
       <div className="case-study-intro">
@@ -330,9 +335,9 @@ export default function ProjectPage() {
             ))}
           </div>
           <p>
-            {project.id === "survey-sage" ? "Explore the team’s approach, evaluation results, and the scope of my contribution." : "Explore the documented decisions and result, then use the interactive section to unpack one part of the project."}
+            {project.id === "survey-sage" ? "Explore the team’s approach, evaluation results, and the scope of my contribution." : project.id === "my-money" ? "Explore the budgeting features, authentication, and data access behind the live app." : "Explore the documented decisions and result, then use the interactive section to unpack one part of the project."}
           </p>
-          {project.id === "survey-sage" ? <a className="text-link" href="https://github.com/mindful-metrics/training-notebooks" target="_blank" rel="noopener noreferrer">Explore the evaluation notebooks <ArrowUpRight size={16} /></a> : <a className="text-link" href="#playground">Open the interactive explainer <ArrowRight size={16} /></a>}
+          {project.id === "survey-sage" ? <a className="text-link" href="https://github.com/mindful-metrics/training-notebooks" target="_blank" rel="noopener noreferrer">Explore the evaluation notebooks <ArrowUpRight size={16} /></a> : project.id === "my-money" ? <a className="text-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Explore My Money <ArrowUpRight size={16} /></a> : <a className="text-link" href="#playground">Open the interactive explainer <ArrowRight size={16} /></a>}
         </div>
       </div>
       <section className="case-notes">
@@ -349,12 +354,12 @@ export default function ProjectPage() {
           ))}
         </div>
         <div className="case-notes-content" aria-live="polite">
-          <span className="eyebrow">{project.id === "survey-sage" ? "FROM THE CAPSTONE REPORT" : "FROM THE RÉSUMÉ"}</span>
+          <span className="eyebrow">{project.id === "survey-sage" ? "FROM THE CAPSTONE REPORT" : project.id === "my-money" ? "FROM THE PROJECT REPOSITORY" : "FROM THE RÉSUMÉ"}</span>
           <h2>{section}</h2>
           <p>{sections[section as keyof typeof sections]}</p>
         </div>
       </section>
-      {project.id !== "survey-sage" && <section id="playground" className="playground-section">
+      {project.id !== "survey-sage" && project.id !== "my-money" && <section id="playground" className="playground-section">
         <div className="section-heading">
           <div>
             <span className="eyebrow">A HANDS-ON EXPLANATION</span>

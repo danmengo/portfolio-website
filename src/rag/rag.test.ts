@@ -174,3 +174,11 @@ it("retrieves Survey Sage contribution evidence without unrelated projects", () 
   expect(passages.every(p => p.href === "/projects/survey-sage")).toBe(true);
   expect(passages.map(p => p.text).join(" ")).toMatch(/generated and scored synthetic/);
 });
+
+
+it("keeps My Money retrieval separate from shared-expense projects", () => {
+  const passages = retrieve("How does My Money protect financial data?");
+  expect(passages.length).toBeGreaterThan(0);
+  expect(passages.every(p => p.href === "/projects/my-money")).toBe(true);
+  expect(passages.map(p => p.text).join(" ")).toMatch(/Row Level Security/);
+});

@@ -1,9 +1,9 @@
 import { Check } from "lucide-react";
-import type { ProjectId } from "../data/projects";
+import { findProject, type ProjectId } from "../data/projects";
 
 export default function ProjectArtwork({ id }: { id: ProjectId }) {
-  if (id === "splitsmart" || id === "sports-analytics-agent" || id === "survey-sage") {
-    const name = id === "splitsmart" ? "SplitSmart" : id === "survey-sage" ? "Survey Sage" : "Sports Analytics Agent";
+  if (id === "splitsmart" || id === "sports-analytics-agent" || id === "survey-sage" || id === "my-money") {
+    const name = findProject(id)!.name;
     return (
       <div className="project-art project-site-preview">
         <div className="project-preview-bar" aria-hidden="true">

@@ -1,4 +1,4 @@
-export type ChatProject = "splitsmart" | "sports-analytics-agent" | "fabflix" | "survey-sage";
+export type ChatProject = "splitsmart" | "sports-analytics-agent" | "fabflix" | "survey-sage" | "my-money";
 
 export interface ChatSource {
   label: string;
@@ -14,6 +14,7 @@ export interface ChatReply {
 }
 
 const projectNames: Record<ChatProject, string> = {
+  "my-money": "My Money",
   "survey-sage": "Survey Sage",
   splitsmart: "SplitSmart",
   "sports-analytics-agent": "Sports Analytics Agent",
@@ -21,6 +22,7 @@ const projectNames: Record<ChatProject, string> = {
 };
 
 const projectSources: Record<ChatProject, ChatSource> = {
+  "my-money": { label: "Explore My Money", href: "/projects/my-money", detail: "Personal finance app · September 2026" },
   "survey-sage": { label: "Explore Survey Sage", href: "/projects/survey-sage", detail: "UCI capstone · June 2026" },
   splitsmart: { label: "Explore SplitSmart", href: "/projects/splitsmart", detail: "Full-stack project · February 2026" },
   "sports-analytics-agent": { label: "Explore Sports Analytics Agent", href: "/projects/sports-analytics-agent", detail: "AI/ML project · October 2025" },
@@ -41,6 +43,7 @@ export const DEFAULT_QUESTIONS = [
 
 export function resolveProject(value?: string): ChatProject | undefined {
   const normalized = value?.toLowerCase().replace(/[\s-]/g, "");
+  if (normalized === "mymoney" || normalized === "mymoneybudget") return "my-money";
   if (normalized === "splitsmart") return "splitsmart";
   if (normalized === "sportsanalyticsagent" || normalized === "sportsanalytics" || normalized === "sportsagent") return "sports-analytics-agent";
   if (normalized === "surveysage") return "survey-sage";
@@ -88,6 +91,7 @@ function projectReply(project: ChatProject, question: string): ChatReply {
   if (asksForUnsupportedDetail) return unavailableProjectDetail(project);
 
   const paragraphs: Record<ChatProject, string[]> = {
+    "my-money": ["My Money is a personal budgeting dashboard for transactions, category budgets, savings and investing goals, spending analytics, and CSV export. It uses Next.js, React, TypeScript, Supabase Auth, PostgreSQL Row Level Security, and Recharts, deployed on Cloudflare Workers."],
     "survey-sage": ["Survey Sage is a June 2026 UCI team capstone exploring local LLM survey scoring. Daniel generated and scored synthetic conversations and evaluated models in Jupyter. The team benchmark used 60 synthetic conversations across six instruments; the prototype was not clinically validated."],
     splitsmart: asksAboutPerformance
       ? ["The résumé does not list a numeric performance or adoption metric for SplitSmart. Its documented result is a working group-expense and splitting experience with Recharts analytics."]
@@ -138,7 +142,7 @@ function projectReply(project: ChatProject, question: string): ChatReply {
 /** Local, deterministic preview only. It does not call a model or store messages. */
 export function getChatReply(input: string, previousProject?: ChatProject): ChatReply {
   const question = input.trim().toLowerCase().slice(0, 500);
-  const explicitProject: ChatProject | undefined = /survey[\s-]*sage/.test(question) ? "survey-sage" : /split\s?-?smart/.test(question)
+  const explicitProject: ChatProject | undefined = /my[\s-]*money/.test(question) ? "my-money" : /survey[\s-]*sage/.test(question) ? "survey-sage" : /split\s?-?smart/.test(question)
     ? "splitsmart"
     : /sports[-\s]+analytics(?:[-\s]+agent)?|sports[-\s]+agent/.test(question)
       ? "sports-analytics-agent"
@@ -259,7 +263,7 @@ export function getChatReply(input: string, previousProject?: ChatProject): Chat
 
   if (/another project|all (the )?projects|what.*projects|list.*projects|show.*work|what.*(built|made|created)/.test(question)) {
     return {
-      paragraphs: ["Daniel's résumé includes SplitSmart, a full-stack group-expense app; Sports Analytics Agent, an MLB-focused AI/ML project; and Fabflix, a load-balanced backend project with MySQL replication."],
+      paragraphs: ["Daniel's projects include My Money, a personal budgeting dashboard; Survey Sage, a UCI team research prototype; SplitSmart, a full-stack group-expense app; Sports Analytics Agent, an MLB-focused AI/ML project; and Fabflix, a load-balanced backend project with MySQL replication."],
       sources: Object.values(projectSources),
       suggestions: ["Tell me about SplitSmart", "Tell me about Sports Analytics Agent", "Tell me about Fabflix"],
     };
