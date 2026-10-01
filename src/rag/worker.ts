@@ -17,8 +17,21 @@ export interface Env {
   CHAT_BUDGET?: { idFromName(name: string): unknown; get(id: unknown): { fetch(request: Request): Promise<Response> } };
 }
 
-const headers = { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" };
+const securityHeaders = {
+  "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+  "Strict-Transport-Security": "max-age=31536000",
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+};
+const headers = { ...securityHeaders, "Cache-Control": "no-store" };
 function json(body: unknown, status = 200) { return Response.json(body, { status, headers }); }
+function withSecurityHeaders(response: Response) {
+  const secured = new Response(response.body, response);
+  for (const [name, value] of Object.entries(securityHeaders)) secured.headers.set(name, value);
+  return secured;
+}
 function error(message: string, status: number) { return json({ error: message }, status); }
 
 async function readQuestion(request: Request) {
@@ -58,7 +71,7 @@ export default {
       return Response.redirect(url.toString(), 308);
     }
     const path = url.pathname;
-    if (!path.startsWith("/api/")) return env.ASSETS ? env.ASSETS.fetch(request) : error("Not found.", 404);
+    if (!path.startsWith("/api/")) return env.ASSETS ? withSecurityHeaders(await env.ASSETS.fetch(request)) : error("Not found.", 404);
     if (path !== "/api/chat") return error("Not found.", 404);
     if (request.method !== "POST") return new Response(null, { status: 405, headers: { ...headers, Allow: "POST" } });
     if (env.CHAT_ENABLED !== "true") return error("Live AI is currently paused.", 503);
