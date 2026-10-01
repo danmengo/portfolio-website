@@ -6,7 +6,7 @@ export default function PrivacyPage() {
     <article className="privacy-page page-width">
       <Link to="/">← Back to the portfolio</Link>
       <h1>Privacy policy</h1>
-      <p className="privacy-date">Effective September 13, 2026</p>
+      <p className="privacy-date">Effective October 1, 2026</p>
       <p>This policy explains how Daniel Meng’s portfolio website and mengoAI handle information when you visit or send a message.</p>
 
       <section>
@@ -26,7 +26,8 @@ export default function PrivacyPage() {
       </section>
       <section>
         <h2>Browser storage and tracking</h2>
-        <p>The site uses local storage to remember your light, dark, or automatic theme preference. You can remove it by clearing this site’s browser data. The app does not use advertising cookies or implement cross-site behavioral tracking, and does not change its behavior in response to browser Do Not Track signals.</p>
+        <p>The site uses local storage to remember your light, dark, or automatic theme preference. You can remove it by clearing this site’s browser data.</p>
+        <p>The site uses <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a> to understand overall traffic, such as page views, referring sites, approximate country, browser and device type, and page load performance. It does not use cookies or local storage, and Daniel sees only aggregated reports, not who individual visitors are. The app does not use advertising cookies or implement cross-site behavioral tracking, and does not change its behavior in response to browser Do Not Track signals.</p>
         <p>Information is processed by service providers to operate the site, not sold or shared for targeted advertising. External sites linked from this portfolio have their own privacy practices and may collect information when you visit them.</p>
       </section>
       <section>

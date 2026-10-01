@@ -173,7 +173,7 @@ describe("security headers", () => {
     const fetch = vi.fn().mockResolvedValue(new Response("Portfolio", { headers: { "Content-Type": "text/html" } }));
     const response = await worker.fetch(new Request("https://danmengo.com/"), { ASSETS: { fetch } });
     expect(response.headers.get("Content-Security-Policy")).toContain("frame-ancestors 'none'");
-    expect(response.headers.get("Content-Security-Policy")).toContain("script-src 'self';");
+    expect(response.headers.get("Content-Security-Policy")).toContain("script-src 'self' https://static.cloudflareinsights.com;");
     expect(response.headers.get("X-Frame-Options")).toBe("DENY");
     expect(response.headers.get("Strict-Transport-Security")).toBe("max-age=31536000");
     expect(response.headers.get("Content-Type")).toBe("text/html");
