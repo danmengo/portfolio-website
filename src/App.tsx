@@ -30,7 +30,19 @@ function NavigationEffects() {
       "/projects/fabflix": "Fabflix · full-stack project",
       "/projects/new-project": "New project · coming soon",
     };
-    document.title = `Daniel Meng — ${titles[pathname] ?? "page not found"}`;
+    const pagePath = pathname.replace(/\/+$/, "") || "/";
+    document.title = `Daniel Meng — ${titles[pagePath] ?? "page not found"}`;
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (titles[pagePath]) {
+      if (!canonical) {
+        canonical = document.createElement("link");
+        canonical.rel = "canonical";
+        document.head.appendChild(canonical);
+      }
+      canonical.href = `https://danmengo.com${pagePath}`;
+    } else {
+      canonical?.remove();
+    }
     const frame = requestAnimationFrame(() => {
       if (hash) {
         const target = document.getElementById(hash.slice(1));
