@@ -1,3 +1,4 @@
+import { updatePageMetadata } from "./lib/seo";
 import { useEffect, useState } from "react";
 import {
   Link,
@@ -18,31 +19,7 @@ import ProjectTemplatePage from "./components/ProjectTemplate";
 function NavigationEffects() {
   const { pathname, hash, key } = useLocation();
   useEffect(() => {
-    const titles: Record<string, string> = {
-      "/": "full-stack & AI/ML engineer",
-      "/chat": "mengoAI · portfolio conversation",
-      "/resume": "résumé",
-      "/privacy": "privacy policy",
-      "/projects/splitsmart": "SplitSmart · full-stack project",
-      "/projects/sports-analytics-agent": "Sports Analytics Agent · AI/ML project",
-      "/projects/my-money": "My Money · Personal finance dashboard",
-      "/projects/survey-sage": "Survey Sage · AI research capstone",
-      "/projects/fabflix": "Fabflix · full-stack project",
-      "/projects/new-project": "New project · coming soon",
-    };
-    const pagePath = pathname.replace(/\/+$/, "") || "/";
-    document.title = `Daniel Meng — ${titles[pagePath] ?? "page not found"}`;
-    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (titles[pagePath]) {
-      if (!canonical) {
-        canonical = document.createElement("link");
-        canonical.rel = "canonical";
-        document.head.appendChild(canonical);
-      }
-      canonical.href = `https://danmengo.com${pagePath}`;
-    } else {
-      canonical?.remove();
-    }
+    updatePageMetadata(pathname);
     const frame = requestAnimationFrame(() => {
       if (hash) {
         const target = document.getElementById(hash.slice(1));
