@@ -99,6 +99,8 @@ npm run deploy
 
 ## Current status
 
-The repository is private while the portfolio content is being finalized. Search-engine indexing is also disabled in `index.html`; that directive can be removed when the site is ready for broader sharing.
+The portfolio is public and search-engine indexing is enabled. `public/robots.txt` points crawlers to `public/sitemap.xml`, which lists the HTTPS homepage, résumé, privacy policy, and published project pages. Known pages set their canonical URL to `https://danmengo.com` on navigation.
+
+The HTTP homepage permanently redirects to HTTPS; Search Console reporting the HTTP URL as “Page with redirect” is expected. After deployment, submit `https://danmengo.com/sitemap.xml` in Google Search Console and use URL Inspection → Test live URL → Request indexing for the privacy page if its report still shows an older `noindex` result. Google controls when pages are recrawled and indexed.
 
 See [`PORTFOLIO_PLAN.md`](./PORTFOLIO_PLAN.md) for the product direction and future ideas, including the model-backed version of “Ask my AI.”
